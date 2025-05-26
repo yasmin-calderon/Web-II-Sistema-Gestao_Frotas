@@ -1,0 +1,50 @@
+<div class="main-wrapper d-flex">
+  <app-sidebar></app-sidebar>
+  <div class="content-area flex-grow-1 d-flex flex-column">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-building-fill me-2 text-primary"></i> Gestão de Frotas
+        </a>
+        <div class="d-flex align-items-center ms-auto">
+          <div class="dropdown me-3" *ngIf="currentUserProfile === 'Administrador'">
+            <button class="btn btn-light position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-bell-fill"></i>
+              <span *ngIf="unreadNotificationsCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ unreadNotificationsCount }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown" style="min-width: 300px;">
+              <li><h6 class="dropdown-header">Notificações</h6></li>
+              <li *ngIf="notifications.length === 0"><a class="dropdown-item" href="#">Nenhuma nova notificação.</a></li>
+              <li *ngFor="let notif of notifications">
+                <a class="dropdown-item" href="#">
+                  <small class="text-muted d-block">{{ notif.date | date:'short' }}</small>
+                  {{ notif.message }}
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-center" href="#">Ver todas as notificações</a></li>
+            </ul>
+          </div>
+
+          <span class="navbar-text me-3 d-none d-md-block">
+            Bem-vindo(a), <strong class="text-primary">{{ currentUserDisplayName }}</strong>!
+          </span>
+
+          </div>
+      </div>
+    </nav>
+    <main class="flex-grow-1 p-3">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="footer bg-light text-muted text-center py-3 mt-auto">
+      <div class="container">
+        <span>© 2025 Gestão de Frotas. Todos os direitos reservados.</span>
+      </div>
+    </footer>
+  </div>
+</div>
