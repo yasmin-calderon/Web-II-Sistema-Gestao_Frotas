@@ -1,6 +1,8 @@
 package com.example.backend_frotas.entity;
 
 import com.example.backend_frotas.enums.TipoCombustivel;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,8 +21,11 @@ public class Abastecimento {
   @JoinColumn(name = "veiculo_id", nullable = false)
   private Veiculo veiculo;
 
+  // @ManyToOne
+  // @JoinColumn(name = "motorista_id", nullable = false)
   @ManyToOne
-  @JoinColumn(name = "motorista_id", nullable = false)
+  @JoinColumn(name = "motorista_id")
+  @JsonBackReference
   private Usuario motorista;
 
   @Column(name = "data_abastecimento", nullable = false)

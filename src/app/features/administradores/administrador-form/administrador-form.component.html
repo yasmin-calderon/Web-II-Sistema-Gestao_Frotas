@@ -1,0 +1,86 @@
+<form [formGroup]="administradorForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>CPF:</label>
+    <input formControlName="cpf" type="text" mask="00000000000" />
+    <div *ngIf="enviado && f['cpf'].errors">
+      <small *ngIf="f['cpf'].errors['required']">CPF é obrigatório.</small>
+      <small *ngIf="f['cpf'].errors['minlength']">CPF deve ter 11 números.</small>
+      <small *ngIf="f['cpf'].errors['maxlength']">CPF deve ter 11 números.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Nome Completo:</label>
+    <input formControlName="nomeCompleto" type="text" />
+    <div *ngIf="enviado && f['nomeCompleto'].errors">
+      <small *ngIf="f['nomeCompleto'].errors['required']">Nome Completo é obrigatório.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Telefone:</label>
+    <input formControlName="telefone" type="text" mask="(00) 00000-0000" />
+    <div *ngIf="enviado && f['telefone'].errors">
+      <small *ngIf="f['telefone'].errors['required']">Telefone é obrigatório.</small>
+      <small *ngIf="f['telefone'].errors['minlength']">Telefone inválido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>CEP:</label>
+    <input formControlName="cep" type="text" mask="00000000" />
+    <div *ngIf="enviado && f['cep'].errors">
+      <small *ngIf="f['cep'].errors['required']">CEP é obrigatório.</small>
+      <small *ngIf="f['cep'].errors['minlength']">CEP inválido.</small>
+      <small *ngIf="f['cep'].errors['maxlength']">CEP inválido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Logradouro:</label>
+    <input formControlName="logradouro" type="text" />
+  </div>
+
+  <div>
+    <label>Bairro:</label>
+    <input formControlName="bairro" type="text" />
+  </div>
+
+  <div>
+    <label>Cidade:</label>
+    <input formControlName="cidade" type="text" />
+  </div>
+
+  <div>
+    <label>Estado:</label>
+    <input formControlName="estado" type="text" />
+  </div>
+
+  <div>
+    <label>E-mail:</label>
+    <input formControlName="email" type="email" />
+    <div *ngIf="enviado && f['email'].errors">
+      <small *ngIf="f['email'].errors['required']">E-mail é obrigatório.</small>
+      <small *ngIf="f['email'].errors['email']">E-mail inválido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Senha:</label>
+    <input formControlName="senha" type="password" />
+    <div *ngIf="enviado && f['senha'].errors">
+      <small *ngIf="f['senha'].errors['required']">Senha é obrigatória.</small>
+      <small *ngIf="f['senha'].errors['minlength']">Senha deve ter ao menos 6 caracteres.</small>
+    </div>
+  </div>
+
+  <button type="submit">Salvar</button>
+</form>
+
+<div *ngIf="sucessoMensagem" style="color: green; margin-top: 10px;">
+  {{ sucessoMensagem }}
+</div>
+
+<div *ngIf="erroMensagem" style="color: red; margin-top: 10px;">
+  {{ erroMensagem }}
+</div>

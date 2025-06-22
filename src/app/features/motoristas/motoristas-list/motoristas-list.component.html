@@ -1,1 +1,33 @@
-<p>motoristas-list works!</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Lista de Motoristas</h2>
+      <a class="btn btn-primary" [routerLink]="['/app/motoristas/novo']">
+        Cadastrar Motorista
+      </a>
+    </div>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome Completo</th>
+          <th>CPF</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let motorista of motoristas">
+          <td>{{ motorista.nomeCompleto }}</td>
+          <td>{{ motorista.cpf }}</td>
+          <td>
+            <a
+              class="btn btn-sm btn-outline-secondary"
+              [routerLink]="['/app/motoristas/editar', motorista.cpf]"
+            >
+              Editar
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

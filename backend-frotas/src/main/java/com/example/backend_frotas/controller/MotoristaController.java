@@ -1,8 +1,9 @@
 package com.example.backend_frotas.controller;
 
 import com.example.backend_frotas.dto.CreateMotoristaDto;
+import com.example.backend_frotas.dto.MotoristaResponseDto;
 import com.example.backend_frotas.dto.UpdateMotoristaDto;
-import com.example.backend_frotas.model.Motorista;
+import com.example.backend_frotas.entity.Usuario;
 import com.example.backend_frotas.service.MotoristaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,31 +13,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/motoristas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MotoristaController {
 
     @Autowired
     private MotoristaService motoristaService;
 
     @PostMapping
-    public ResponseEntity<Motorista> criarMotorista(@RequestBody @Valid CreateMotoristaDto dto) {
-        Motorista novoMotorista = motoristaService.criar(dto);
+    public ResponseEntity<Usuario> criarMotorista(@RequestBody @Valid CreateMotoristaDto dto) {
+        Usuario novoMotorista = motoristaService.criar(dto);
         return ResponseEntity.ok(novoMotorista);
     }
 
     @GetMapping
-    public ResponseEntity<List<Motorista>> listarMotoristas() {
+    public ResponseEntity<List<MotoristaResponseDto>> listarMotoristas() {
         return ResponseEntity.ok(motoristaService.listarTodos());
     }
 
+    @GetMapping("/{cpf}")
+    public ResponseEntity<Usuario> buscarPorCpf(@PathVariable String cpf) {
+        Usuario motorista = motoristaService.buscarPorCpf(cpf);
+        return ResponseEntity.ok(motorista);
+    }
+
     @PutMapping("/{cpf}")
-    public ResponseEntity<Motorista> atualizarMotorista(@PathVariable String cpf, @RequestBody @Valid UpdateMotoristaDto dto) {
+    public ResponseEntity<Usuario> atualizarMotorista(@PathVariable String cpf, @RequestBody @Valid UpdateMotoristaDto dto) {
         return ResponseEntity.ok(motoristaService.atualizar(cpf, dto));
     }
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> desativarMotorista(@PathVariable String cpf) {
+        //
         motoristaService.desativar(cpf);
         return ResponseEntity.noContent().build();
     }
-    /// aqui ainda precisa adicionar a parte do motorista nao poder desativar a si mesmo, mas depende da feature de login 
 }
+

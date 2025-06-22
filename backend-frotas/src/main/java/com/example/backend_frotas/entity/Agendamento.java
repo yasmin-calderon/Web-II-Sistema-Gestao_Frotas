@@ -1,6 +1,8 @@
 package com.example.backend_frotas.entity;
 
 import com.example.backend_frotas.enums.AgendamentoStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,8 +21,11 @@ public class Agendamento {
   @JoinColumn(name = "veiculo_id", nullable = false) // Coluna da chave estrangeira
   private Veiculo veiculo;
 
-  @ManyToOne // Muitos agendamentos para um motorista
-  @JoinColumn(name = "motorista_id", nullable = false)
+  // @ManyToOne // Muitos agendamentos para um motorista
+  // @JoinColumn(name = "motorista_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "motorista_id")
+  @JsonBackReference
   private Usuario motorista; // Assumindo que Usuario pode ser Motorista ou Administrador
 
   @Column(name = "data_hora_saida", nullable = false)

@@ -1,1 +1,115 @@
-<p>motorista-form works!</p>
+<form [formGroup]="motoristaForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nome Completo:</label>
+      <input formControlName="nomeCompleto" type="text" />
+      <div *ngIf="enviado && f['nomeCompleto'].errors">
+        <small *ngIf="f['nomeCompleto'].errors?.['required']">Nome Completo é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>CPF:</label>
+      <input formControlName="cpf" type="text" mask="00000000000" />
+      <div *ngIf="enviado && f['cpf'].errors">
+        <small *ngIf="f['cpf'].errors?.['required']">CPF é obrigatório.</small>
+        <small *ngIf="f['cpf'].errors?.['minlength']">CPF deve ter 11 caracteres.</small>
+        <small *ngIf="f['cpf'].errors?.['maxlength']">CPF deve ter 11 caracteres.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>CNH:</label>
+      <input formControlName="cnh" type="text" />
+      <div *ngIf="enviado && f['cnh'].errors">
+        <small *ngIf="f['cnh'].errors?.['required']">CNH é obrigatória.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Validade CNH:</label>
+      <input formControlName="validadeCnh" type="text" placeholder="dd/mm/aaaa" />
+      <div *ngIf="enviado && f['validadeCnh'].errors">
+        <small *ngIf="f['validadeCnh'].errors?.['required']">Validade da CNH é obrigatória.</small>
+        <small *ngIf="f['validadeCnh'].errors?.['pattern']">Formato deve ser dd/mm/aaaa.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Telefone:</label>
+      <input formControlName="telefone" type="text" mask="(00) 00000-0000" />
+      <div *ngIf="enviado && f['telefone'].errors">
+        <small *ngIf="f['telefone'].errors?.['required']">Telefone é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>CEP:</label>
+      <input formControlName="cep" type="text" mask="00000000" />
+      <div *ngIf="enviado && f['cep'].errors">
+        <small *ngIf="f['cep'].errors?.['required']">CEP é obrigatório.</small>
+        <small *ngIf="f['cep'].errors?.['minlength']">CEP deve ter 8 caracteres.</small>
+        <small *ngIf="f['cep'].errors?.['maxlength']">CEP deve ter 8 caracteres.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Logradouro:</label>
+      <input formControlName="logradouro" type="text" />
+      <div *ngIf="enviado && f['logradouro'].errors">
+        <small *ngIf="f['logradouro'].errors?.['required']">Logradouro é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Bairro:</label>
+      <input formControlName="bairro" type="text" />
+      <div *ngIf="enviado && f['bairro'].errors">
+        <small *ngIf="f['bairro'].errors?.['required']">Bairro é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Cidade:</label>
+      <input formControlName="cidade" type="text" />
+      <div *ngIf="enviado && f['cidade'].errors">
+        <small *ngIf="f['cidade'].errors?.['required']">Cidade é obrigatória.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Estado:</label>
+      <input formControlName="estado" type="text" />
+      <div *ngIf="enviado && f['estado'].errors">
+        <small *ngIf="f['estado'].errors?.['required']">Estado é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>E-mail:</label>
+      <input formControlName="email" type="email" />
+      <div *ngIf="enviado && f['email'].errors">
+        <small *ngIf="f['email'].errors?.['required']">E-mail é obrigatório.</small>
+        <small *ngIf="f['email'].errors?.['email']">E-mail inválido.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label>Senha:</label>
+      <input formControlName="senha" type="password" />
+      <div *ngIf="enviado && f['senha'].errors">
+        <small *ngIf="f['senha'].errors?.['required']">Senha é obrigatória.</small>
+        <small *ngIf="f['senha'].errors?.['minlength']">Senha deve ter pelo menos 6 caracteres.</small>
+      </div>
+    </div>
+  
+    <button type="submit">Salvar</button>
+  </form>
+  
+  <div *ngIf="sucessoMensagem" style="color: green; margin-top: 10px;">
+    {{ sucessoMensagem }}
+  </div>
+  
+  <div *ngIf="erroMensagem" style="color: red; margin-top: 10px;">
+    {{ erroMensagem }}
+  </div>
+  

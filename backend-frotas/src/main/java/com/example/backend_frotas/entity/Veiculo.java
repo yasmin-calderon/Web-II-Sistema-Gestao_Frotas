@@ -1,4 +1,5 @@
 package com.example.backend_frotas.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,16 +17,31 @@ public class Veiculo {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  // @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // private List<Agendamento> agendamentos;
+
+  // @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // private List<Ocorrencia> ocorrencias;
+
+  // @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // private List<Abastecimento> abastecimentos;
+
+  // @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // private List<Manutencao> manutencoes;
   @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnoreProperties("veiculo")
   private List<Agendamento> agendamentos;
 
   @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnoreProperties("veiculo")
   private List<Ocorrencia> ocorrencias;
 
   @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnoreProperties("veiculo")
   private List<Abastecimento> abastecimentos;
 
   @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnoreProperties("veiculo")
   private List<Manutencao> manutencoes;
 
   @Column(nullable = false, unique = true, length = 7)
@@ -51,3 +67,4 @@ public class Veiculo {
   @Column(nullable = false)
   private Boolean ativo = true;
 }
+
