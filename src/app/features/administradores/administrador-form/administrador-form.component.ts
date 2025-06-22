@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AdministradorService } from '../services/administrador.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ViaCepService } from '../../../shared/viacep.service';
+import { EnderecoViaCep } from '../../../shared/viacep.model';
 
 @Component({
   selector: 'app-administrador-form',
@@ -23,7 +25,8 @@ export class AdministradorFormComponent implements OnInit {
     private fb: FormBuilder,
     private administradorService: AdministradorService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private viaCepService: ViaCepService
   ) {
     this.administradorForm = this.fb.group({
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
@@ -44,14 +47,37 @@ export class AdministradorFormComponent implements OnInit {
 
     if (this.idEditando) {
       this.carregarAdministrador(this.idEditando);
-
-      //cpf nao pode ser alterado
       this.administradorForm.get('cpf')?.disable();
-
-      //campo senha eh opcional na edicao
       this.administradorForm.get('senha')?.clearValidators();
       this.administradorForm.get('senha')?.updateValueAndValidity();
     }
+    //buscando o cep e o endereco automaticamente
+    this.administradorForm.get('cep')?.valueChanges.subscribe((cep: string) => {
+      if (cep && cep.length === 8) {
+        this.buscarEndereco(cep);
+      }
+    });
+  }
+
+  buscarEndereco(cep: string) {
+    this.viaCepService.buscarEnderecoPorCep(cep).subscribe({
+      next: (endereco: EnderecoViaCep) => {
+        if ((endereco as any).erro) {
+          this.erroMensagem = 'CEP não encontrado.';
+          return;
+        }
+
+        this.administradorForm.patchValue({
+          logradouro: endereco.logradouro,
+          bairro: endereco.bairro,
+          cidade: endereco.localidade,
+          estado: endereco.uf,
+        });
+      },
+      error: () => {
+        this.erroMensagem = 'Erro ao buscar o endereço.';
+      }
+    });
   }
 
   carregarAdministrador(id: string) {
@@ -59,7 +85,7 @@ export class AdministradorFormComponent implements OnInit {
       next: (admin) => {
         this.administradorForm.patchValue({
           ...admin,
-          senha: '', //senha nao vem pro back pra nao dar erro ao salvar edicao
+          senha: '', // senha não vem preenchida 
         });
       },
       error: (err) => {
@@ -77,29 +103,26 @@ export class AdministradorFormComponent implements OnInit {
     this.enviado = true;
 
     if (this.idEditando) {
-      this.administradorForm.get('cpf')?.enable(); // Temporariamente ativa CPF para leitura
+      this.administradorForm.get('cpf')?.enable();
     }
 
     if (this.administradorForm.invalid) {
-      this.erroMensagem = 'Preencha todos os campos obrigatórios corretamente';
+      this.erroMensagem = 'Preencha todos os campos obrigatórios corretamente.';
       this.sucessoMensagem = '';
       if (this.idEditando) this.administradorForm.get('cpf')?.disable();
       return;
     }
 
     let dadosParaEnviar = { ...this.administradorForm.getRawValue() };
-
     dadosParaEnviar.cpf = this.limparMascara(dadosParaEnviar.cpf ?? '');
     dadosParaEnviar.telefone = this.limparMascara(dadosParaEnviar.telefone);
     dadosParaEnviar.cep = this.limparMascara(dadosParaEnviar.cep);
 
-    //se na edicao o campo senha estiver vazio, ela eh removidad do objeto
     if (this.idEditando && !dadosParaEnviar.senha) {
       delete dadosParaEnviar.senha;
     }
 
     if (this.idEditando) {
-      //update
       this.administradorService.atualizarAdministrador(this.idEditando, dadosParaEnviar).subscribe({
         next: () => {
           this.sucessoMensagem = 'Administrador atualizado com sucesso!';
@@ -113,7 +136,6 @@ export class AdministradorFormComponent implements OnInit {
         }
       });
     } else {
-      //criando novo
       this.administradorService.criarAdministrador(dadosParaEnviar).subscribe({
         next: () => {
           this.sucessoMensagem = 'Administrador cadastrado com sucesso!';

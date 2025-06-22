@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { MotoristaService } from '../services/motorista.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ViaCepService } from '../../../shared/viacep.service';
+import { EnderecoViaCep } from '../../../shared/viacep.model';
 
 @Component({
   selector: 'app-motorista-form',
@@ -22,7 +24,8 @@ export class MotoristaFormComponent implements OnInit {
     private fb: FormBuilder,
     private motoristaService: MotoristaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private viaCepService: ViaCepService
   ) {
     this.motoristaForm = this.fb.group({
       nomeCompleto: ['', Validators.required],
@@ -50,12 +53,38 @@ export class MotoristaFormComponent implements OnInit {
       this.motoristaForm.get('senha')?.clearValidators();
       this.motoristaForm.get('senha')?.updateValueAndValidity();
     }
+    //buscando o cep e o endereco automaticamente
+    this.motoristaForm.get('cep')?.valueChanges.subscribe((cep: string) => {
+      if (cep && cep.length === 8) {
+        this.buscarEndereco(cep);
+      }
+    });    
   }
+  buscarEndereco(cep: string) {
+    this.viaCepService.buscarEnderecoPorCep(cep).subscribe({
+      next: (endereco: EnderecoViaCep) => {
+        if (endereco.erro) {
+          this.erroMensagem = 'CEP não encontrado.';
+          return;
+        }
+        this.motoristaForm.patchValue({
+          logradouro: endereco.logradouro,
+          bairro: endereco.bairro,
+          cidade: endereco.localidade,
+          estado: endereco.uf,
+        });
+      },
+      error: () => {
+        this.erroMensagem = 'Erro ao buscar o endereço.';
+      }
+    });
+  }
+  
 
   carregarMotorista(cpf: string) {
     this.motoristaService.buscarPorCpf(cpf).subscribe({
       next: (motorista) => {
-        console.log('Motorista carregado:', motorista); // <-- veja se aparece aqui
+        console.log('Motorista carregado:', motorista); 
         const dataFormatada = this.converterDataParaPtBr(motorista.validadeCnh);
         this.motoristaForm.patchValue({
           ...motorista,
