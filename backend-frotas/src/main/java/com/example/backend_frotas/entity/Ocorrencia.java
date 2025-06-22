@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "ocorrencias")
 @Data
@@ -16,8 +18,11 @@ public class Ocorrencia {
   @JoinColumn(name = "veiculo_id", nullable = false)
   private Veiculo veiculo;
 
+  // @ManyToOne
+  // @JoinColumn(name = "motorista_id", nullable = false)
   @ManyToOne
-  @JoinColumn(name = "motorista_id", nullable = false)
+  @JoinColumn(name = "motorista_id")
+  @JsonBackReference
   private Usuario motorista;
 
   @Column(name = "data_registro", nullable = false)

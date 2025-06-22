@@ -1,6 +1,8 @@
 package com.example.backend_frotas.entity;
 
 import com.example.backend_frotas.enums.PerfilUsuario;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Data; // Anotação Lombok para getters, setters, etc.
 import java.time.LocalDate;
@@ -15,16 +17,22 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   // mappedBy = "motorista": indica que a propriedade 'motorista' na entidade Agendamento é que faz o mapeamento
   // cascade = CascadeType.ALL: Operações como salvar/deletar em Usuario podem cascatear para Agendamentos (use com cautela)
   // fetch = FetchType.LAZY: Carrega os agendamentos apenas quando acessados (melhor para performance)
+  @OneToMany(mappedBy = "motorista")
+  @JsonManagedReference
   private List<Agendamento> agendamentos;
 
-  @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "motorista")
+  @JsonManagedReference
   private List<Ocorrencia> ocorrencias;
 
-  @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  // @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "motorista")
+  @JsonManagedReference
   private List<Abastecimento> abastecimentos;
 
   @Column(name = "nome_completo", nullable = false, length = 100)

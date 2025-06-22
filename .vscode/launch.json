@@ -3,6 +3,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "BackendFrotasApplication",
+      "request": "launch",
+      "mainClass": "com.example.backend_frotas.BackendFrotasApplication",
+      "projectName": "backend-frotas"
+    },
+    {
+      "type": "java",
+      "name": "TesteLombok",
+      "request": "launch",
+      "mainClass": "com.example.backend_frotas.TesteLombok",
+      "projectName": "backend-frotas"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
