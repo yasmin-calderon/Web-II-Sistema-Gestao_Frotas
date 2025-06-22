@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AgendamentoService {
 
-  private apiUrl = 'http://localhost:8080/api/agendamentos'; // ajuste se necessário
+  private apiUrl = 'http://localhost:8080/agendamentos'; // ajuste se necessário
 
   constructor(private http: HttpClient) {}
 

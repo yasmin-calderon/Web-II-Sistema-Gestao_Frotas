@@ -41,11 +41,15 @@ export class AdministradorFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.idEditando = this.route.snapshot.paramMap.get('id');
+
     if (this.idEditando) {
-      // Estamos em modo edição
       this.carregarAdministrador(this.idEditando);
+
+      //cpf nao pode ser alterado
       this.administradorForm.get('cpf')?.disable();
-      this.administradorForm.get('senha')?.clearValidators(); // senha não obrigatória ao editar
+
+      //campo senha eh opcional na edicao
+      this.administradorForm.get('senha')?.clearValidators();
       this.administradorForm.get('senha')?.updateValueAndValidity();
     }
   }
@@ -55,11 +59,11 @@ export class AdministradorFormComponent implements OnInit {
       next: (admin) => {
         this.administradorForm.patchValue({
           ...admin,
-          senha: '', // Não trazemos senha do backend
+          senha: '', //senha nao vem pro back pra nao dar erro ao salvar edicao
         });
       },
       error: (err) => {
-        this.erroMensagem = 'Erro ao carregar administrador.';
+        this.erroMensagem = 'Erro ao carregar cadastro do administrador.';
         console.error(err);
       }
     });
@@ -72,25 +76,30 @@ export class AdministradorFormComponent implements OnInit {
   onSubmit() {
     this.enviado = true;
 
-    // habilita o campo CPF se estiver desabilitado (só para pegar o valor)
     if (this.idEditando) {
-      this.administradorForm.get('cpf')?.enable();
+      this.administradorForm.get('cpf')?.enable(); // Temporariamente ativa CPF para leitura
     }
 
     if (this.administradorForm.invalid) {
-      this.erroMensagem = 'Preencha todos os campos obrigatórios corretamente.';
+      this.erroMensagem = 'Preencha todos os campos obrigatórios corretamente';
       this.sucessoMensagem = '';
       if (this.idEditando) this.administradorForm.get('cpf')?.disable();
       return;
     }
 
-    const dadosParaEnviar = { ...this.administradorForm.getRawValue() };
+    let dadosParaEnviar = { ...this.administradorForm.getRawValue() };
+
     dadosParaEnviar.cpf = this.limparMascara(dadosParaEnviar.cpf ?? '');
     dadosParaEnviar.telefone = this.limparMascara(dadosParaEnviar.telefone);
     dadosParaEnviar.cep = this.limparMascara(dadosParaEnviar.cep);
 
+    //se na edicao o campo senha estiver vazio, ela eh removidad do objeto
+    if (this.idEditando && !dadosParaEnviar.senha) {
+      delete dadosParaEnviar.senha;
+    }
+
     if (this.idEditando) {
-      // Atualizar administrador
+      //update
       this.administradorService.atualizarAdministrador(this.idEditando, dadosParaEnviar).subscribe({
         next: () => {
           this.sucessoMensagem = 'Administrador atualizado com sucesso!';
@@ -104,7 +113,7 @@ export class AdministradorFormComponent implements OnInit {
         }
       });
     } else {
-      // Criar novo administrador
+      //criando novo
       this.administradorService.criarAdministrador(dadosParaEnviar).subscribe({
         next: () => {
           this.sucessoMensagem = 'Administrador cadastrado com sucesso!';

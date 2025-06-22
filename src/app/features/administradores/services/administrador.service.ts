@@ -13,7 +13,18 @@ export interface Administrador {
   cidade: string;
   estado: string;
   email: string;
-  senha: string;
+  senha?: string;
+}
+
+export interface UpdateAdministradorDto {
+  nomeCompleto: string;
+  telefone: string;
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  email: string;
 }
 
 @Injectable({
@@ -29,15 +40,16 @@ export class AdministradorService {
   }
 
   listar(): Observable<Administrador[]> {
-  return this.http.get<Administrador[]>(this.apiUrl);
+    return this.http.get<Administrador[]>(this.apiUrl);
   }
-  buscarPorId(id: string) {
+
+  buscarPorId(id: string): Observable<Administrador> {
     return this.http.get<Administrador>(`${this.apiUrl}/${id}`);
   }
-  
-  atualizarAdministrador(id: string, dados: any) {
-    return this.http.put(`${this.apiUrl}/${id}`, dados);
-  }  
+
+  atualizarAdministrador(id: string, dados: UpdateAdministradorDto): Observable<Administrador> {
+    return this.http.put<Administrador>(`${this.apiUrl}/${id}`, dados);
+  }
 
   desativar(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
@@ -47,4 +59,3 @@ export class AdministradorService {
     return this.http.get<Administrador>(`${this.apiUrl}/${cpf}`);
   }
 }
-
