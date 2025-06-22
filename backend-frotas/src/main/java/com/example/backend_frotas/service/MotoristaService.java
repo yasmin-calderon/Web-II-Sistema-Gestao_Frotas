@@ -1,12 +1,16 @@
 package com.example.backend_frotas.service;
-import com.example.backend_frotas.dto.CreateMotoristaDto;
-import com.example.backend_frotas.dto.UpdateMotoristaDto;
-import com.example.backend_frotas.model.Motorista;
-import com.example.backend_frotas.repository.MotoristaRepository;
 
+import com.example.backend_frotas.dto.CreateMotoristaDto;
+import com.example.backend_frotas.dto.MotoristaResponseDto;
+import com.example.backend_frotas.dto.UpdateMotoristaDto;
+import com.example.backend_frotas.entity.Usuario;
+import com.example.backend_frotas.enums.PerfilUsuario;
+import com.example.backend_frotas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,58 +18,79 @@ import java.util.Optional;
 public class MotoristaService {
 
     @Autowired
-    private MotoristaRepository motoristaRepository;
+    private UsuarioRepository usuarioRepository;
 
-    public Motorista criar(CreateMotoristaDto dto) {
-        Motorista motorista = new Motorista();
+    public Usuario criar(CreateMotoristaDto dto) {
+        if (usuarioRepository.existsByCpf(dto.getCpf())) {
+            throw new RuntimeException("Já existe um motorista com esse CPF.");
+        }
 
+        Usuario motorista = new Usuario();
         motorista.setNomeCompleto(dto.getNomeCompleto());
         motorista.setCpf(dto.getCpf());
         motorista.setCnh(dto.getCnh());
         motorista.setValidadeCnh(dto.getValidadeCnh());
         motorista.setTelefone(dto.getTelefone());
         motorista.setCep(dto.getCep());
-        motorista.setLogradouro(dto.getLogradouro());
+        motorista.setRua(dto.getLogradouro());
         motorista.setBairro(dto.getBairro());
         motorista.setCidade(dto.getCidade());
         motorista.setEstado(dto.getEstado());
         motorista.setEmail(dto.getEmail());
 
-        ///aqui tem que implementar a parte da criptografia da senha
-        motorista.setSenha(dto.getSenha());
+        // criptografar a senha antes de salvar
+        motorista.setSenhaHash(dto.getSenha());
 
-        motorista.setAtivo(true); ///aqui o campo pra controlar o status do motorista 
+        motorista.setPerfil(PerfilUsuario.MOTORISTA);
+        motorista.setAtivo(true);
 
-        return motoristaRepository.save(motorista);
+        return usuarioRepository.save(motorista);
     }
 
-    public List<Motorista> listarTodos() {
-        return motoristaRepository.findAllByAtivoTrue();
+    public List<MotoristaResponseDto> listarTodos() {
+        return usuarioRepository.findByPerfilAndAtivoTrue(PerfilUsuario.MOTORISTA)
+            .stream()
+            .map(usuario -> {
+                MotoristaResponseDto dto = new MotoristaResponseDto();
+                dto.setId(usuario.getId());
+                dto.setNomeCompleto(usuario.getNomeCompleto());
+                dto.setCpf(usuario.getCpf());
+                dto.setEmail(usuario.getEmail());
+                dto.setTelefone(usuario.getTelefone());
+                return dto;
+            })
+            .toList();
     }
+    
 
-    public Motorista atualizar(String cpf, UpdateMotoristaDto dto) {
-        Optional<Motorista> optional = motoristaRepository.findByCpfAndAtivoTrue(cpf);
+    public Usuario atualizar(String cpf, UpdateMotoristaDto dto) {
+        Optional<Usuario> optional = usuarioRepository.findByCpfAndPerfilAndAtivoTrue(cpf, PerfilUsuario.MOTORISTA);
         if (optional.isEmpty()) {
-            throw new RuntimeException("Não foi possível encontrar o motorista em base de dados.");
+            throw new RuntimeException("Motorista não encontrado.");
         }
-
-        Motorista motorista = optional.get();
-
+    
+        Usuario motorista = optional.get();
+    
         motorista.setNomeCompleto(dto.getNomeCompleto());
         motorista.setTelefone(dto.getTelefone());
         motorista.setEmail(dto.getEmail());
-
-        return motoristaRepository.save(motorista);
+    
+        return usuarioRepository.save(motorista);
     }
-
+    
     public void desativar(String cpf) {
-        Optional<Motorista> optional = motoristaRepository.findByCpfAndAtivoTrue(cpf);
+        Optional<Usuario> optional = usuarioRepository.findByCpfAndPerfilAndAtivoTrue(cpf, PerfilUsuario.MOTORISTA);
         if (optional.isPresent()) {
-            Motorista motorista = optional.get();
+            Usuario motorista = optional.get();
             motorista.setAtivo(false);
-            motoristaRepository.save(motorista);
+            usuarioRepository.save(motorista);
         } else {
             throw new RuntimeException("Não foi possível encontrar o motorista em base de dados.");
         }
+    }
+
+    public Usuario buscarPorCpf(String cpf) {
+        return usuarioRepository.findByCpfAndPerfilAndAtivoTrue(cpf, PerfilUsuario.MOTORISTA)
+            .orElseThrow(() -> new RuntimeException("Motorista com CPF " + cpf + " não encontrado ou está desativado."));
     }
 }

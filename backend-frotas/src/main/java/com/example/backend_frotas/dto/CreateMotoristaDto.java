@@ -1,12 +1,13 @@
 package com.example.backend_frotas.dto;
-
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class CreateMotoristaDto {
-// ja adicionando as validacoes dos campos 
+
     @NotBlank(message = "Nome completo é obrigatório")
     private String nomeCompleto;
 
@@ -17,9 +18,8 @@ public class CreateMotoristaDto {
     @NotBlank(message = "CNH é obrigatório")
     private String cnh;
 
-    @NotBlank(message = "A validade da CNH é obrigatória")
-    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$", message = "Data deve estar no formato dd/mm/yyyy")
-    private String validadeCnh;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate validadeCnh;
 
     @NotBlank(message = "Telefone é obrigatório")
     private String telefone;
@@ -34,7 +34,7 @@ public class CreateMotoristaDto {
     @NotBlank(message = "Bairro é obrigatório")
     private String bairro;
 
-    @NotBlank(message = "Cidade é obrigatório")
+    @NotBlank(message = "Cidade é obrigatória")
     private String cidade;
 
     @NotBlank(message = "Estado é obrigatório")
@@ -48,8 +48,7 @@ public class CreateMotoristaDto {
     @Size(min = 6, message = "A senha deve ter ao menos 6 caracteres")
     private String senha;
 
-    // inicio getters e seters
-
+    // Getters e Setters
     public String getNomeCompleto() {
         return nomeCompleto;
     }
@@ -74,11 +73,11 @@ public class CreateMotoristaDto {
         this.cnh = cnh;
     }
 
-    public String getValidadeCnh() {
+    public LocalDate getValidadeCnh() {
         return validadeCnh;
     }
 
-    public void setValidadeCnh(String validadeCnh) {
+    public void setValidadeCnh(LocalDate validadeCnh) {
         this.validadeCnh = validadeCnh;
     }
 
@@ -146,4 +145,3 @@ public class CreateMotoristaDto {
         this.senha = senha;
     }
 }
-

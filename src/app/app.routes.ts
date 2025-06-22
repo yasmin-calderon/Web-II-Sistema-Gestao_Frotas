@@ -20,7 +20,8 @@ import { HistoricoViagensComponent } from './features/dashboard-motorista/histor
 import { IniciarViagemComponent } from './features/dashboard-motorista/iniciar-viagem/iniciar-viagem.component';
 import { FinalizarViagemComponent } from './features/dashboard-motorista/finalizar-viagem/finalizar-viagem.component';
 import { DetalhesViagemComponent } from './features/dashboard-motorista/detalhes-viagem/detalhes-viagem.component';
-
+import { AdministradorFormComponent } from './features/administradores/administrador-form/administrador-form.component';
+import { AdministradorListComponent } from './features/administradores/administrador-list/administrador-list.component';
 
 export const routes: Routes = [
   {
@@ -29,7 +30,7 @@ export const routes: Routes = [
     // redirectTo: 'login',
     // pathMatch: 'full'
     // Remover quando o login estiver implementado
-    redirectTo: 'app/administrador',
+    redirectTo: 'app/administradores',
     pathMatch: 'full'
   },
   {
@@ -74,10 +75,36 @@ export const routes: Routes = [
         component: DetalhesViagemComponent
       },
 
+      // Rotas de Motoristas (RF011)
+      {
+        path: 'motoristas',
+        component: MotoristasListComponent
+      },
+      {
+        path: 'motoristas/novo',
+        component: MotoristaFormComponent
+      },
+      {
+        path: 'motoristas/editar/:cpf',
+        component: MotoristaFormComponent
+      },
+
       // Rotas do Administrador
       {
         path: 'administrador',
         component: DashboardAdministradorComponent
+      },
+      {
+        path: 'administradores/novo',
+        component: AdministradorFormComponent
+      },
+      {
+        path: 'administradores/editar/:id',
+        component: AdministradorFormComponent
+      },
+      {
+        path: 'administradores',
+        component: AdministradorListComponent
       },
 
       // Rotas de Veículos (RF010)
@@ -92,20 +119,6 @@ export const routes: Routes = [
       {
         path: 'veiculos/editar/:id',
         component: VeiculoFormComponent
-      },
-
-      // Rotas de Motoristas (RF011)
-      {
-        path: 'motoristas',
-        component: MotoristasListComponent
-      },
-      {
-        path: 'motoristas/novo',
-        component: MotoristaFormComponent
-      },
-      {
-        path: 'motoristas/editar/:id',
-        component: MotoristaFormComponent
       },
 
       // Rotas de Agendamentos (RF009)
