@@ -1,6 +1,7 @@
 package com.example.backend_frotas.service;
 
 import com.example.backend_frotas.dto.CreateAdministradorDto;
+import com.example.backend_frotas.dto.UpdateAdministradorDto;
 import com.example.backend_frotas.entity.Usuario;
 import com.example.backend_frotas.enums.PerfilUsuario;
 import com.example.backend_frotas.repository.UsuarioRepository;
@@ -59,11 +60,20 @@ public class AdministradorService {
         usuario.setEmail(dto.getEmail());
     
         if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            usuario.setSenhaHash(dto.getSenha()); // ou com encoder depois
+            usuario.setSenhaHash(dto.getSenha()); //adicionar encoder depois?
         }
-        
-    
         return usuarioRepository.save(usuario);
     }
+    public Usuario atualizar(Long id, UpdateAdministradorDto dto) {
+        Usuario admin = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Administrador não encontrado"));
+
+        admin.setNomeCompleto(dto.getNomeCompleto());
+        admin.setTelefone(dto.getTelefone());
+        admin.setEmail(dto.getEmail());
+
+        return usuarioRepository.save(admin);
+    }
+
     
 }

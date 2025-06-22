@@ -13,5 +13,20 @@ public class UpdateAdministradorDto {
     private String telefone;
 
     @NotBlank
+    private String cep;
+
+    @NotBlank
+    private String logradouro;
+
+    @NotBlank
+    private String bairro;
+
+    @NotBlank
+    private String cidade;
+
+    @NotBlank
+    private String estado;
+
+    @NotBlank
     private String email;
 }

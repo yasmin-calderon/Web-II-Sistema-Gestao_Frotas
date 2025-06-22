@@ -12,7 +12,7 @@ export class DashboardMotoristaComponent {
 */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AgendamentoService } from '../../agendamentos/services/agendamentos.service';
+import { AgendamentoService } from '../../features/agendamentos/services/agendamento.service';
 
 interface Agendamento {
   id: number;

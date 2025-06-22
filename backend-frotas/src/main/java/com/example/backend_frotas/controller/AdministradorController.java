@@ -1,6 +1,7 @@
 package com.example.backend_frotas.controller;
 
 import com.example.backend_frotas.dto.CreateAdministradorDto;
+import com.example.backend_frotas.dto.UpdateAdministradorDto;
 import com.example.backend_frotas.entity.Usuario;
 import com.example.backend_frotas.service.AdministradorService;
 import jakarta.validation.Valid;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administradores")
-@CrossOrigin(origins = "http://localhost:4200")  // Libera CORS para o frontend Angular
+@CrossOrigin(origins = "http://localhost:4200")  //evitando erro de cors
 public class AdministradorController {
 
     @Autowired
@@ -30,10 +31,12 @@ public class AdministradorController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
-    return ResponseEntity.ok(administradorService.buscarPorId(id));
+        return ResponseEntity.ok(administradorService.buscarPorId(id));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody @Valid CreateAdministradorDto dto) {
-    return ResponseEntity.ok(administradorService.atualizar(id, dto));
+    public ResponseEntity<Usuario> atualizar(
+            @PathVariable Long id,@RequestBody @Valid UpdateAdministradorDto dto) {
+        return ResponseEntity.ok(administradorService.atualizar(id, dto));
+    }
 }
-}
+
