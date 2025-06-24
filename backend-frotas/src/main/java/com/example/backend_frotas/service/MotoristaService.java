@@ -7,10 +7,9 @@ import com.example.backend_frotas.entity.Usuario;
 import com.example.backend_frotas.enums.PerfilUsuario;
 import com.example.backend_frotas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +18,9 @@ public class MotoristaService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Usuario criar(CreateMotoristaDto dto) {
         if (usuarioRepository.existsByCpf(dto.getCpf())) {
@@ -37,9 +39,7 @@ public class MotoristaService {
         motorista.setCidade(dto.getCidade());
         motorista.setEstado(dto.getEstado());
         motorista.setEmail(dto.getEmail());
-
-        // criptografar a senha antes de salvar
-        motorista.setSenhaHash(dto.getSenha());
+        motorista.setSenhaHash(passwordEncoder.encode(dto.getSenha()));
 
         motorista.setPerfil(PerfilUsuario.MOTORISTA);
         motorista.setAtivo(true);

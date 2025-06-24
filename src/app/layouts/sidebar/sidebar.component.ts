@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../../core/auth/login/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,10 +24,6 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(): void {
-    // Isso ainda é um placeholder, até ter o login
-    // Por enquanto, apenas redireciona para a tela de login.
-    console.log('Tentando logout...');
-    // this.authService.logout(); // Chama o método (vazio) do AuthService
-    this.router.navigate(['/login']);
+    this.authService.logout(); // Chama o método de logout do AuthService
   }
 }

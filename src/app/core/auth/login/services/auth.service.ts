@@ -39,9 +39,11 @@ export class AuthService {
           localStorage.setItem('perfil', resp.perfil);
 
           if (resp.perfil === 'ADMINISTRADOR') {
-            this.router.navigate(['/admin/home']);
+            this.router.navigate(['/app/administrador']);
+          } else if (resp.perfil === 'MOTORISTA') {
+            this.router.navigate(['/app/agendamentos']);
           } else {
-            this.router.navigate(['/motorista/home']);
+            this.router.navigate(['/not-found']); // TODO: Redirecionar para uma página padrão ou de erro
           }
         })
       );
@@ -54,5 +56,13 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  getPerfil(): string | null {
+    return localStorage.getItem('perfil');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
   }
 }
