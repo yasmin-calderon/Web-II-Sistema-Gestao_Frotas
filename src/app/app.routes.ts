@@ -89,7 +89,7 @@ export const routes: Routes = [
         component: MotoristaFormComponent
       },
 
-      // Rotas do Administrador
+      // Rotas do Administrador (RF008)
       {
         path: 'administrador',
         component: DashboardAdministradorComponent

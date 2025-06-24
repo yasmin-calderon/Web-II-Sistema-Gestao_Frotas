@@ -1,3 +1,39 @@
-<h2>Dashboard do Administrador</h2>
-
-<app-administrador-list></app-administrador-list>
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-4">Painel do Administrador</h2>
+  
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-4 mb-4">
+      <input [(ngModel)]="filtroData" (ngModelChange)="aplicarFiltros()" type="date" class="border p-2 rounded w-full sm:w-auto" />
+      <input [(ngModel)]="filtroMotorista" (ngModelChange)="aplicarFiltros()" placeholder="Motorista" class="border p-2 rounded w-full sm:w-auto" />
+      <select [(ngModel)]="filtroStatus" (ngModelChange)="aplicarFiltros()" class="border p-2 rounded w-full sm:w-auto">
+        <option value="">Todos os Status</option>
+        <option value="AGENDADO">Agendado</option>
+        <option value="EM USO">Em Uso</option>
+        <option value="FINALIZADO">Finalizado</option>
+        <option value="CANCELADO">Cancelado</option>
+      </select>
+    </div>
+  
+    <!-- Botões -->
+    <div class="flex gap-4 mb-4">
+      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" (click)="agendarViagem()">Agendar Viagem</button>
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" (click)="registrarAbastecimento()">Registrar Abastecimento</button>
+      <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" (click)="registrarManutencao()">Registrar Manutenção</button>
+    </div>
+  
+    <!-- Lista de agendamentos -->
+    <div *ngIf="agendamentosFiltrados.length > 0; else nenhumAgendamento">
+      <div *ngFor="let agendamento of agendamentosFiltrados" class="bg-white shadow rounded p-4 mb-4">
+        <p><strong>Data:</strong> {{ agendamento.dataHoraSaida | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Motorista:</strong> {{ agendamento.motoristaNome }}</p>
+        <p><strong>Veículo:</strong> {{ agendamento.veiculo }}</p>
+        <p><strong>Destino:</strong> {{ agendamento.destino }}</p>
+        <p><strong>Status:</strong> {{ agendamento.status }}</p>
+      </div>
+    </div>
+  
+    <ng-template #nenhumAgendamento>
+      <p class="text-gray-600">Nenhum agendamento encontrado.</p>
+    </ng-template>
+  </div>
+  

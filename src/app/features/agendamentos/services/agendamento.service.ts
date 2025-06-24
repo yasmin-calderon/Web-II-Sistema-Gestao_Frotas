@@ -14,4 +14,11 @@ export class AgendamentoService {
   getAgendamentosPorMotorista(motoristaId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/motorista/${motoristaId}`);
   }
+  
+  // NOVO MÉTODO PARA O ADMINISTRADOR
+  getTodosAgendamentos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
 }
+
+
