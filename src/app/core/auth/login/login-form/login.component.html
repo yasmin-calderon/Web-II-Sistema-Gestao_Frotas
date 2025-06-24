@@ -1,0 +1,37 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <label>E-mail</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        email
+        #emailInput="ngModel"
+      />
+      <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error">
+        <span *ngIf="emailInput.errors?.['required']">E-mail é obrigatório.</span>
+        <span *ngIf="emailInput.errors?.['email']">E-mail inválido.</span>
+      </div>
+    </div>
+    <div>
+      <label>Senha</label>
+      <input
+        type="password"
+        [(ngModel)]="senha"
+        name="senha"
+        required
+        minlength="6"
+        #senhaInput="ngModel"
+      />
+      <div *ngIf="senhaInput.invalid && (senhaInput.dirty || senhaInput.touched)" class="error">
+        <span *ngIf="senhaInput.errors?.['required']">Senha é obrigatória.</span>
+        <span *ngIf="senhaInput.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres.</span>
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid">Entrar</button>
+  </form>
+  <p class="error" *ngIf="erro">{{ erro }}</p>
+</div>

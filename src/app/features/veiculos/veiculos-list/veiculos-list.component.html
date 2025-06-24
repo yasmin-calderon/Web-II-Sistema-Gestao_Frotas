@@ -1,1 +1,65 @@
-<p>veiculos-list works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista de Veículos</h2>
+    <a class="btn btn-primary" [routerLink]="['/app/veiculos/novo']">
+      Cadastrar Veículo
+    </a>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th (click)="sortBy('placa')" style="cursor:pointer">
+          Placa
+          <span *ngIf="sortColumn === 'placa'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sortBy('modelo')" style="cursor:pointer">
+          Modelo
+          <span *ngIf="sortColumn === 'modelo'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sortBy('tipo')" style="cursor:pointer">
+          Tipo
+          <span *ngIf="sortColumn === 'tipo'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sortBy('ano')" style="cursor:pointer">
+          Ano
+          <span *ngIf="sortColumn === 'ano'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sortBy('quilometragemAtual')" style="cursor:pointer">
+          Quilometragem Atual
+          <span *ngIf="sortColumn === 'quilometragemAtual'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sortBy('status')" style="cursor:pointer">
+          Status
+          <span *ngIf="sortColumn === 'status'">{{ sortAsc ? '▲' : '▼' }}</span>
+        </th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let veiculo of veiculos">
+        <td>{{ veiculo.placa }}</td>
+        <td>{{ veiculo.modelo }}</td>
+        <td>{{ veiculo.tipo }}</td>
+        <td>{{ veiculo.ano }}</td>
+        <td>KM {{ veiculo.quilometragemAtual | number:'1.0-2':'pt-BR' }}</td>
+        <td>{{ getStatusLabel(veiculo.status) }}</td>
+        <td>
+          <a
+            class="btn btn-sm btn-outline-secondary"
+            [routerLink]="['/app/veiculos/editar', veiculo.id]"
+          >
+            Editar
+          </a>
+         <!--  <button
+            class="btn btn-sm btn-outline-danger ms-2"
+            (click)="inativarVeiculo(veiculo.id)"
+            [disabled]="veiculo.status === 'INATIVO'"
+          >
+            Inativar
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

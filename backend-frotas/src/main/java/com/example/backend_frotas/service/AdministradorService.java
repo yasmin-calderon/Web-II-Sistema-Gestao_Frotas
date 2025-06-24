@@ -7,6 +7,7 @@ import com.example.backend_frotas.enums.PerfilUsuario;
 import com.example.backend_frotas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class AdministradorService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Usuario criar(CreateAdministradorDto dto) {
         if (usuarioRepository.existsByCpf(dto.getCpf())) {
@@ -31,7 +35,7 @@ public class AdministradorService {
         usuario.setBairro(dto.getBairro());
         usuario.setCidade(dto.getCidade());
         usuario.setEstado(dto.getEstado());
-        usuario.setSenhaHash(dto.getSenha()); // Idealmente: criptografar
+        usuario.setSenhaHash(passwordEncoder.encode(dto.getSenha())); // Idealmente: criptografar
         usuario.setPerfil(PerfilUsuario.ADMINISTRADOR);
         usuario.setAtivo(true);
 
@@ -60,7 +64,7 @@ public class AdministradorService {
         usuario.setEmail(dto.getEmail());
     
         if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            usuario.setSenhaHash(dto.getSenha()); //adicionar encoder depois?
+            usuario.setSenhaHash(passwordEncoder.encode(dto.getSenha())); //adicionar encoder depois?
         }
         return usuarioRepository.save(usuario);
     }

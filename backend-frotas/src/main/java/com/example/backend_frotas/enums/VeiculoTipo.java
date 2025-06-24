@@ -4,5 +4,6 @@ public enum VeiculoTipo {
   CARRO,
   VAN,
   CAMINHAO,
+  CAMINHONETE,
   MOTO
 }

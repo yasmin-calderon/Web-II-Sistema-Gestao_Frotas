@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../../core/auth/login/services/auth.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Supondo que temos um NotificationService e uma interface para notificações
@@ -33,6 +33,9 @@ export class MainLayoutComponent implements OnInit {
     // Em um cenário real, buscariamos o nome e perfil do AuthService
     // this.currentUserDisplayName = this.authService.getCurrentUser()?.nomeCompleto || 'Usuário';
     // this.currentUserProfile = this.authService.getUserProfile();
+
+    this.currentUserDisplayName = 'Usuário Teste'; // Simulação do nome do usuário
+    this.currentUserProfile = 'Administrador'; // Simulação do perfil do usuário
 
     this.loadNotifications(); // Carrega as notificações iniciais
   }
