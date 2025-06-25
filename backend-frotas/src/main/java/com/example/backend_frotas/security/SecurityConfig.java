@@ -61,7 +61,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-          .csrf(csrf -> csrf.disable())
+          .csrf(csrf -> csrf
+            .ignoringRequestMatchers("/h2-console/**")
+          )
+          .headers(headers -> headers
+            .defaultsDisabled()
+            .frameOptions(frameOptions -> frameOptions.sameOrigin())
+          )
           .cors(Customizer.withDefaults())
           .sessionManagement(sm ->
               sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -69,7 +75,7 @@ public class SecurityConfig {
           .authenticationProvider(authenticationProvider())
           .authorizeHttpRequests(auth ->
               auth
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**", "/h2-console/**").permitAll()
                 //.requestMatchers("/agendamentos/**").permitAll() //permitindo para testes
                 .anyRequest().authenticated()
           )
