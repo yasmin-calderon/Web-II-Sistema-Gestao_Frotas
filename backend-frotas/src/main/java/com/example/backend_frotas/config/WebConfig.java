@@ -10,14 +10,16 @@ public class WebConfig {
     
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        System.out.println("WebConfig loaded!");
         return new WebMvcConfigurer() {
             
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")  // Permite CORS para todas as rotas
                         .allowedOrigins("http://localhost:4200")  // Origem do frontend
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Métodos liberados
-                        .allowCredentials(true);  // Permite envio de cookies/autenticação
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")  // Métodos liberados
+                        .allowCredentials(true)  // Permite envio de cookies/autenticação
+                        .allowedHeaders("*"); // Permite todos os cabeçalhos
             }
         };
     }

@@ -7,6 +7,7 @@ import com.example.backend_frotas.service.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,25 +15,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administradores")
-@CrossOrigin(origins = "http://localhost:4200")  //evitando erro de cors
 public class AdministradorController {
 
     @Autowired
     private AdministradorService administradorService;
 
+    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PostMapping
     public ResponseEntity<Usuario> criar(@RequestBody @Valid CreateAdministradorDto dto) {
         return ResponseEntity.ok(administradorService.criar(dto));
     }
 
+    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @GetMapping
     public ResponseEntity<List<Usuario>> listarTodos() {
         return ResponseEntity.ok(administradorService.listarTodos());
     }
+
+    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(administradorService.buscarPorId(id));
     }
+
+    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizar(
             @PathVariable Long id,@RequestBody @Valid UpdateAdministradorDto dto) {
