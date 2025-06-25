@@ -104,7 +104,7 @@ export const routes: Routes = [
         canActivate: [AdminGuard] // Apenas administradores podem editar motoristas
       },
 
-      // Rotas do Administrador
+      // Rotas do Administrador (RF008)
       {
         path: 'administrador',
         component: DashboardAdministradorComponent,

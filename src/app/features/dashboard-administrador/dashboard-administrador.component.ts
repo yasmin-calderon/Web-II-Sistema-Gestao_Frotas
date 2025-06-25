@@ -1,24 +1,70 @@
-import { Component } from '@angular/core';
-import { AdministradorListComponent } from '../administradores/administrador-list/administrador-list.component'; 
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AgendamentoService } from '../../features/agendamentos/services/agendamento.service';
+
+interface Agendamento {
+  id: number;
+  dataHoraSaida: Date;
+  veiculo: string;
+  destino: string;
+  status: 'AGENDADO' | 'EM USO' | 'FINALIZADO' | 'CANCELADO';
+  motoristaNome: string;
+}
 
 @Component({
   selector: 'app-dashboard-administrador',
   standalone: true,
-  imports: [CommonModule, AdministradorListComponent],
   templateUrl: './dashboard-administrador.component.html',
-  styleUrls: ['./dashboard-administrador.component.css']
+  styleUrls: ['./dashboard-administrador.component.css'],
+  imports: [CommonModule, FormsModule]
 })
-export class DashboardAdministradorComponent {
-  constructor(private router: Router) {}
+export class DashboardAdministradorComponent implements OnInit {
+  agendamentos: Agendamento[] = [];
+  agendamentosFiltrados: Agendamento[] = [];
 
-  irParaCadastro() {
-    this.router.navigate(['/app/administradores/novo']);
+  filtroStatus: string = '';
+  filtroMotorista: string = '';
+  filtroData: string = '';
+
+  constructor(private agendamentoService: AgendamentoService) {}
+
+  ngOnInit() {
+    this.carregarAgendamentos();
   }
 
-  irParaEdicao() {
-    const id = 1; /// exemploo
-    this.router.navigate([`/app/administradores/editar/${id}`]);
+  carregarAgendamentos() {
+    this.agendamentoService.getTodosAgendamentos().subscribe({
+      next: (dados) => {
+        this.agendamentos = dados;
+        this.aplicarFiltros();
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar agendamentos:', erro);
+      }
+    });
+  }
+
+  aplicarFiltros() {
+    this.agendamentosFiltrados = this.agendamentos.filter(agendamento => {
+      const dataFiltro = this.filtroData ? new Date(this.filtroData).toDateString() : '';
+      const dataAgendamento = new Date(agendamento.dataHoraSaida).toDateString();
+
+      return (!this.filtroStatus || agendamento.status === this.filtroStatus)
+        && (!this.filtroMotorista || agendamento.motoristaNome.toLowerCase().includes(this.filtroMotorista.toLowerCase()))
+        && (!this.filtroData || dataAgendamento === dataFiltro);
+    });
+  }
+
+  agendarViagem() {
+    console.log('Agendar Viagem');
+  }
+
+  registrarAbastecimento() {
+    console.log('Registrar Abastecimento');
+  }
+
+  registrarManutencao() {
+    console.log('Registrar Manutenção');
   }
 }

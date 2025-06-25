@@ -70,6 +70,7 @@ public class SecurityConfig {
           .authorizeHttpRequests(auth ->
               auth
                 .requestMatchers("/auth/**").permitAll()
+                //.requestMatchers("/agendamentos/**").permitAll() //permitindo para testes
                 .anyRequest().authenticated()
           )
           .addFilterBefore(
