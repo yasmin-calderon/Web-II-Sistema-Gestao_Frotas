@@ -57,11 +57,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard], // Protege todas as rotas dentro de 'app'
     children: [
       // TODO: Precisa revisar todas as rotas após implementadas para fazer o mapeamento de permissões
-      {
+     /* {
         path: 'forbidden',
         component: Forbidden403Component,
         canActivate: [AuthGuard],
-      },
+      },*/
+      
       // Rotas do Motorista
       {
         path: 'motorista',
