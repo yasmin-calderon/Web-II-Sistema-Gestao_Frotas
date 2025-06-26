@@ -37,6 +37,7 @@ public class Sha256SaltPasswordEncoder implements PasswordEncoder {
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         if (encodedPassword == null || !encodedPassword.contains(":")) {
             return false;
+            
         }
         String[] parts = encodedPassword.split("\\:");
         if (parts.length != 2) return false;
