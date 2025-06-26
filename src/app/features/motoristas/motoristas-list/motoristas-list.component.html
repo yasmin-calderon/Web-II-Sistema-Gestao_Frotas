@@ -12,6 +12,7 @@
           <th>Nome Completo</th>
           <th>CPF</th>
           <th>Ações</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -20,11 +21,20 @@
           <td>{{ motorista.cpf }}</td>
           <td>
             <a
-              class="btn btn-sm btn-outline-secondary"
+              class="btn btn-sm btn-outline-secondary me-2"
               [routerLink]="['/app/motoristas/editar', motorista.cpf]"
             >
               Editar
             </a>
+          
+            
+            <button
+              *ngIf="perfilUsuario === 'ADMINISTRADOR'"
+              class="btn btn-sm btn-outline-danger"
+              (click)="deletarMotorista(motorista.cpf)"
+            >
+              Deletar
+            </button>
           </td>
         </tr>
       </tbody>

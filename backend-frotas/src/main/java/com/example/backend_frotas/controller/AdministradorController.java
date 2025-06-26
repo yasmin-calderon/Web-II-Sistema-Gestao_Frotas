@@ -7,8 +7,9 @@ import com.example.backend_frotas.service.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -43,6 +44,13 @@ public class AdministradorController {
     public ResponseEntity<Usuario> atualizar(
             @PathVariable Long id,@RequestBody @Valid UpdateAdministradorDto dto) {
         return ResponseEntity.ok(administradorService.atualizar(id, dto));
+    }
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desativarAdministrador(@PathVariable Long id, Authentication auth) {
+        String emailLogado = auth.getName();
+        administradorService.desativarAdministrador(id, emailLogado);
+        return ResponseEntity.noContent().build();
     }
 }
 

@@ -30,6 +30,7 @@ public class UsuarioDetails extends User {
         this.perfil = usuario.getPerfil();
         this.id = usuario.getId();
     }
+    
 
     /**
      * Retorna o perfil do usuário (MOTORISTA ou ADMINISTRADOR).

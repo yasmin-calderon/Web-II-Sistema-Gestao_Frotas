@@ -78,6 +78,19 @@ public class AdministradorService {
 
         return usuarioRepository.save(admin);
     }
-
+    public void desativarAdministrador(Long id, String emailLogado) {
+        Usuario admin = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Administrador não encontrado."));
+    
+        if (!admin.getPerfil().equals(PerfilUsuario.ADMINISTRADOR)) {
+            throw new RuntimeException("O usuário informado não é um administrador.");
+        }
+    
+        if (admin.getEmail().equals(emailLogado)) {
+            throw new RuntimeException("Você não pode deletar a si mesmo.");
+        }
+        admin.setAtivo(false);
+        usuarioRepository.save(admin);
+    }
     
 }

@@ -87,26 +87,38 @@ export const routes: Routes = [
       {
         path: 'motoristas/novo',
         component: MotoristaFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+
+        canActivate: [AdminGuard] // Apenas administradores podem criar motoristas
       },
       {
         path: 'motoristas/editar/:cpf',
         component: MotoristaFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        canActivate: [AdminGuard] // Apenas administradores podem editar motoristas
       },
       {
-        path: 'administradores',
-        component: AdministradorListComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        path: 'administrador',
+        component: DashboardAdministradorComponent,
+        canActivate: [AdminGuard] // Apenas administradores podem acessar o dashboard do administrador
       },
       {
         path: 'administradores/novo',
         component: AdministradorFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+
+        canActivate: [AdminGuard] // Apenas administradores podem criar outros administradores
       },
       {
         path: 'administradores/editar/:id',
         component: AdministradorFormComponent,
+        canActivate: [AdminGuard] // Apenas administradores podem editar outros administradores
+      },
+      {
+        path: 'administradores',
+        component: AdministradorListComponent,
+        canActivate: [AdminGuard] // Apenas administradores podem acessar a lista de administradores
+      },
+
+      // Rotas de Veículos (RF010)
+      {
         canActivate: [AdminGuard] // Apenas administradores
       },
       {
