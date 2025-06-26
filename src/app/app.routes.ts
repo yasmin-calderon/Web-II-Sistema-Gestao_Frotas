@@ -30,7 +30,7 @@ export const routes: Routes = [
   {
     path: '',
     //Descomentar quando o login estiver implementado
-    redirectTo: 'login',
+    redirectTo: 'app',
     pathMatch: 'full'
     // Remover quando o login estiver implementado
     // redirectTo: 'app/administradores',
@@ -54,13 +54,13 @@ export const routes: Routes = [
   {
     path: 'app',
     component: MainLayoutComponent,
-    canActivate: [AuthGuard], // Protege todas as rotas dentro de 'app'
+    // canActivate: [AuthGuard], // Protege todas as rotas dentro de 'app'
     children: [
       // TODO: Precisa revisar todas as rotas após implementadas para fazer o mapeamento de permissões
       {
         path: 'forbidden',
         component: Forbidden403Component,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       // Rotas do Motorista
       {
@@ -75,14 +75,14 @@ export const routes: Routes = [
         path: 'motorista/historico-viagens',
         component: HistoricoViagensComponent
       },
-      {
+     /* {
         path: 'motorista/agendamento/:id/iniciar',
         component: IniciarViagemComponent
       },
       {
         path: 'motorista/agendamento/:id/finalizar',
         component: FinalizarViagemComponent
-      },
+      }, */ // Comentado pois está como modal no sistema, não é necessário redirecionamento de rota para estas funções
       {
         path: 'motorista/agendamento/:id/detalhes',
         component: DetalhesViagemComponent

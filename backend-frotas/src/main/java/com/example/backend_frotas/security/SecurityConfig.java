@@ -62,7 +62,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
           .csrf(csrf -> csrf
-            .ignoringRequestMatchers("/h2-console/**")
+            //.ignoringRequestMatchers("/h2-console/**") // Comentado para testes
+            .disable() // Para permitir testes de endpoints, pode ser comentado posteriormente
           )
           .headers(headers -> headers
             .defaultsDisabled()
@@ -76,7 +77,7 @@ public class SecurityConfig {
           .authorizeHttpRequests(auth ->
               auth
                 .requestMatchers("/auth/**", "/h2-console/**").permitAll()
-                //.requestMatchers("/agendamentos/**").permitAll() //permitindo para testes
+                .requestMatchers("/agendamentos/**","/viagens/**","/motoristas/**").permitAll() //permitindo para testes
                 .anyRequest().authenticated()
           )
           .addFilterBefore(
