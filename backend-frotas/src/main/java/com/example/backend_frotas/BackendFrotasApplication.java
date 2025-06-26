@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BackendFrotasApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Iniciando BackendFrotasApplication...");
 		SpringApplication.run(BackendFrotasApplication.class, args);
 	}
 

@@ -101,29 +101,29 @@ export const routes: Routes = [
       {
         path: 'motoristas/editar/:cpf',
         component: MotoristaFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem editar motoristas
+        // canActivate: [AdminGuard] // Apenas administradores podem editar motoristas
       },
 
       // Rotas do Administrador (RF008)
       {
         path: 'administrador',
         component: DashboardAdministradorComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem acessar o dashboard do administrador
+        // canActivate: [AdminGuard] // Apenas administradores podem acessar o dashboard do administrador
       },
       {
         path: 'administradores/novo',
         component: AdministradorFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem criar outros administradores
+        // canActivate: [AdminGuard] // Apenas administradores podem criar outros administradores
       },
       {
         path: 'administradores/editar/:id',
         component: AdministradorFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem editar outros administradores
+        // canActivate: [AdminGuard] // Apenas administradores podem editar outros administradores
       },
       {
         path: 'administradores',
         component: AdministradorListComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem acessar a lista de administradores
+        // canActivate: [AdminGuard] // Apenas administradores podem acessar a lista de administradores
       },
 
       // Rotas de Veículos (RF010)
@@ -139,7 +139,7 @@ export const routes: Routes = [
       {
         path: 'veiculos/editar/:id',
         component: VeiculoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem editar veículos
+        // canActivate: [AdminGuard] // Apenas administradores podem editar veículos
       },
 
       // Rotas de Agendamentos (RF009)
@@ -150,26 +150,26 @@ export const routes: Routes = [
       {
         path: 'agendamentos/novo',
         component: AgendamentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem criar agendamentos
+        // canActivate: [AdminGuard] // Apenas administradores podem criar agendamentos
       },
       {
         path: 'agendamentos/editar/:id',
         component: AgendamentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem editar agendamentos
+        // canActivate: [AdminGuard] // Apenas administradores podem editar agendamentos
       },
 
       // Rotas de Abastecimentos (RF012)
       {
         path: 'abastecimentos/novo/:agendamentoId?',
         component: AbastecimentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem criar abastecimentos
+        // canActivate: [AdminGuard] // Apenas administradores podem criar abastecimentos
       },
 
       // Rotas de Manutenções (RF013)
       {
         path: 'manutencoes/novo/:veiculoId?',
         component: ManutencaoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores podem criar manutenções
+        // canActivate: [AdminGuard] // Apenas administradores podem criar manutenções
       },
 
       {
