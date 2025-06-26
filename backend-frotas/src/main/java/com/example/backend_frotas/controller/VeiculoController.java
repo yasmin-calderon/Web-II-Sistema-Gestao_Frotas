@@ -4,7 +4,7 @@ import com.example.backend_frotas.entity.Veiculo;
 import com.example.backend_frotas.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,21 +16,21 @@ public class VeiculoController {
     @Autowired
     private VeiculoService veiculoService;
 
-    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PostMapping
     public ResponseEntity<Veiculo> cadastrar(@RequestBody Veiculo veiculo) {
         Veiculo novo = veiculoService.cadastrar(veiculo);
         return ResponseEntity.ok(novo);
     }
 
-    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PutMapping("/{id}")
     public ResponseEntity<Veiculo> editar(@PathVariable Long id, @RequestBody Veiculo veiculo) {
         Veiculo atualizado = veiculoService.editar(id, veiculo);
         return ResponseEntity.ok(atualizado);
     }
 
-    @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PutMapping("/{id}/inativar")
     public ResponseEntity<Void> inativar(@PathVariable Long id) {
         veiculoService.inativar(id);
