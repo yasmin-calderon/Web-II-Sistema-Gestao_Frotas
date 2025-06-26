@@ -10,7 +10,6 @@ public class WebConfig {
     
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-        System.out.println("WebConfig loaded!");
         return new WebMvcConfigurer() {
             
             @Override
