@@ -117,10 +117,10 @@ export const routes: Routes = [
         canActivate: [AdminGuard] // Apenas administradores podem acessar a lista de administradores
       },
 
-      // Rotas de Veículos (RF010)
+      /* Rotas de Veículos (RF010)
       {
         canActivate: [AdminGuard] // Apenas administradores
-      },
+      },*/
       {
         path: 'veiculos',
         component: VeiculosListComponent,
@@ -152,12 +152,12 @@ export const routes: Routes = [
         canActivate: [AdminGuard] // Apenas administradores podem editar agendamentos
       },
       {
-        path: 'abastecimentos/novo/:agendamentoId?',
+        path: 'abastecimentos/novo',//:agendamentoId?',
         component: AbastecimentoFormComponent,
-        //canActivate: [AdminGuard] // Apenas administradores podem criar abastecimentos
+        canActivate: [AdminGuard] // Apenas administradores podem criar abastecimentos
       },
       {
-        path: 'manutencoes/novo/:veiculoId?',
+        path: 'manutencoes/novo',//:veiculoId?',
         component: ManutencaoFormComponent,
         canActivate: [AdminGuard] // Apenas administradores
       },
