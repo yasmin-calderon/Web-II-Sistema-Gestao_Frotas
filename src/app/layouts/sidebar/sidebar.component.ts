@@ -3,27 +3,31 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/auth/login/services/auth.service';
 
+interface MenuItem {
+  label: string;
+  link: string;
+}
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './sidebar.component.html', // Usaremos o arquivo HTML
+  templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  // Variável temporária para simular o perfil do usuário
-  // Podemos mudar para 'Administrador' ou 'Motorista' para testar
-  userProfile: 'Motorista' | 'Administrador' | null = 'Administrador'; // Mudar para testar
 
-  constructor(private authService: AuthService, private router: Router) { }
+  menuItems: MenuItem[] = [];
+  
+  userProfile: string | null = null;
+
+  constructor(private authService: AuthService) {}  
 
   ngOnInit(): void {
-    // Em um cenário real, buscaria o perfil do AuthService aqui:
-    // this.userProfile = this.authService.getUserProfile();
-    // Por enquanto, mantenho o valor fixo para testes de layout.
+    this.userProfile = this.authService.getPerfil();
   }
 
   logout(): void {
-    this.authService.logout(); // Chama o método de logout do AuthService
+    this.authService.logout();
   }
 }

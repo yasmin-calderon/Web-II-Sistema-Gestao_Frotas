@@ -15,6 +15,7 @@ public class UsuarioDetails extends User {
     private static final long serialVersionUID = 1L;
 
     private final PerfilUsuario perfil;
+    private final Long id;
 
     /**
      * Constrói um UsuarioDetails a partir da entidade Usuario.
@@ -27,6 +28,7 @@ public class UsuarioDetails extends User {
             List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getPerfil().name()))
         );
         this.perfil = usuario.getPerfil();
+        this.id = usuario.getId();
     }
 
     /**
@@ -34,5 +36,9 @@ public class UsuarioDetails extends User {
      */
     public PerfilUsuario getPerfil() {
         return perfil;
+    }
+
+    public Long getId() { // Retorna o ID do usuário
+        return id;
     }
 }

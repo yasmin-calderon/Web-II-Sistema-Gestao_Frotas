@@ -1,1 +1,72 @@
-<p>detalhes-viagem works!</p>
+<div class="container mt-4">
+  <div class="mb-4">
+    <a routerLink="/app/motorista/historico-viagens" class="btn btn-outline-secondary btn-sm">
+      &larr; Voltar para o Histórico
+    </a>
+  </div>
+  <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+  <div *ngIf="errorMessage && !isLoading" class="alert alert-danger">
+    <strong>Erro!</strong> {{ errorMessage }}
+  </div>
+  <div *ngIf="viagem && !isLoading" class="card shadow-sm">
+    <div class="card-header">
+      <h2 class="h4 mb-0">Detalhes da Viagem #{{ viagem.id }}</h2>
+      <p class="mb-0 text-muted">Destino: {{ viagem.destino }}</p>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Informações Gerais</h5>
+      <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item"><strong>Motorista:</strong> {{ viagem.motoristaNome }}</li>
+        <li class="list-group-item"><strong>Veículo:</strong> {{ viagem.veiculoUtilizado }}</li>
+        <li class="list-group-item"><strong>Status Atual:</strong> {{ viagem.statusAtual }}</li>
+        <li class="list-group-item"><strong>Justificativa:</strong> {{ viagem.justificativa }}</li>
+      </ul>
+      <h5 class="card-title mt-4">Linha do Tempo da Viagem</h5>
+      <div class="workflow-container mt-4 mb-3">
+        <!-- Container Workflow -->
+        <div class="workflow-track">
+          <div class="workflow-line-background"></div>
+          <div class="workflow-line-progress" [style.width.%]="getWorkflowProgressPercentage()"></div>
+        </div>
+        <div class="workflow-steps">
+          <div *ngFor="let evento of workflowSteps; let i = index" class="workflow-step-item">
+            <div class="workflow-step" [ngClass]="{'completed': isStepCompleted(i)}">
+              <i *ngIf="isStepCompleted(i)" class="bi bi-check"></i>
+            </div>
+            <p class="step-label">{{ evento.descricaoEvento }}</p>
+            <p class="step-date" *ngIf="isStepCompleted(i)">{{ getEventDate(evento.descricaoEvento) | date:'dd/MM HH:mm' }}</p>
+          </div>
+        </div>
+      </div>
+      <h5 class="card-title mt-4">Registros de Viagem</h5>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="p-3 border rounded h-100">
+            <h6>Saída</h6>
+            <hr class="my-2">
+            <p><strong>Data/Hora Programada:</strong> {{ viagem.dataHoraSaida | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p><strong>Quilometragem:</strong> {{ viagem.quilometragemSaida | number:'1.0-2' }} km</p>
+            <p class="mt-2"><strong>Observações:</strong><br>
+              <span class="text-muted fst-italic">{{ viagem.observacoesSaida || 'Nenhuma observação registrada.' }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="p-3 border rounded h-100">
+            <h6>Retorno</h6>
+            <hr class="my-2">
+            <p><strong>Data/Hora Efetiva:</strong> {{ viagem.dataHoraRetorno | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p><strong>Quilometragem:</strong> {{ viagem.quilometragemFinal | number:'1.0-2' }} km</p>
+            <p class="mt-2"><strong>Observações:</strong><br>
+              <span class="text-muted fst-italic">{{ viagem.observacoesFinal || 'Nenhuma observação registrada.' }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
