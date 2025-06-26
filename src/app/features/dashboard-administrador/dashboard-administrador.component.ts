@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AgendamentoService } from '../../features/agendamentos/services/agendamento.service';
 
 interface Agendamento {
@@ -27,8 +28,10 @@ export class DashboardAdministradorComponent implements OnInit {
   filtroMotorista: string = '';
   filtroData: string = '';
 
-  constructor(private agendamentoService: AgendamentoService) {}
-
+  constructor(
+    private agendamentoService: AgendamentoService,
+    private router: Router) {}
+  
   ngOnInit() {
     this.carregarAgendamentos();
   }
@@ -57,7 +60,7 @@ export class DashboardAdministradorComponent implements OnInit {
   }
 
   agendarViagem() {
-    console.log('Agendar Viagem');
+    this.router.navigate(['/app/agendamentos/novo']);
   }
 
   registrarAbastecimento() {

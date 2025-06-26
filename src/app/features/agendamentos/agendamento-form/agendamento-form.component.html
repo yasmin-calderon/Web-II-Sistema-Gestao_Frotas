@@ -1,1 +1,39 @@
-<p>agendamento-form works!</p>
+<div class="container mt-4">
+    <h2>Agendar Viagem</h2>
+  
+    <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Motorista</label>
+        <select formControlName="idMotorista" class="form-control">
+          <option *ngFor="let m of motoristas" [value]="m.id">{{ m.nomeCompleto }}</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label>Veículo</label>
+        <select formControlName="idVeiculo" class="form-control">
+          <option *ngFor="let v of veiculos" [value]="v.id">{{ v.placa }}</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label>Data e Hora de Saída</label>
+        <input type="datetime-local" formControlName="dataHoraSaida" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label>Destino</label>
+        <input type="text" formControlName="destino" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label>Justificativa</label>
+        <textarea formControlName="justificativa" class="form-control"></textarea>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="agendamentoForm.invalid">
+        Agendar
+      </button>
+    </form>
+  </div>
+  

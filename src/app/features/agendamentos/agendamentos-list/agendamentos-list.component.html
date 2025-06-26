@@ -1,1 +1,31 @@
-<p>agendamentos-list works!</p>
+<div class="container mt-4" *ngIf="perfil === 'ADMINISTRADOR'">
+    <h2>Agendamentos</h2>
+  
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Motorista</th>
+          <th>Veículo</th>
+          <th>Saída</th>
+          <th>Destino</th>
+          <th>Justificativa</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agendamento of agendamentos">
+          <td>{{ agendamento.motorista?.nomeCompleto }}</td>
+          <td>{{ agendamento.veiculo?.modelo }}</td>
+          <td>{{ agendamento.dataHoraSaida | date: 'short' }}</td>
+          <td>{{ agendamento.destino }}</td>
+          <td>{{ agendamento.justificativa }}</td>
+          <td>{{ agendamento.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div *ngIf="perfil !== 'ADMINISTRADOR'" class="alert alert-warning mt-4">
+    Você não tem permissão para ver os agendamentos.
+  </div>
+  
