@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ViagemService {
     List<ViagemHistoricoDto> listarViagensPorMotorista(Long motoristaId);
-    ViagemDetalhesDto obterDetalhesViagem(Long id);
-    ViagemDetalhesDto iniciarViagem(Long id, IniciarViagemRequestDto requestDTO);
-    ViagemDetalhesDto finalizarViagem(Long id, FinalizarViagemRequestDto requestDTO);
+    ViagemDetalhesDto obterDetalhesViagem(Long id, Long motoristaIdAutenticado);
+    ViagemDetalhesDto iniciarViagem(Long viagemId, IniciarViagemRequestDto requestDTO, Long motoristaIdAutenticado);
+    ViagemDetalhesDto finalizarViagem(Long viagemId, FinalizarViagemRequestDto requestDTO, Long motoristaIdAutenticado);
 }

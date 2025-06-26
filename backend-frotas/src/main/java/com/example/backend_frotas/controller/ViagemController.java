@@ -5,9 +5,12 @@ import com.example.backend_frotas.dto.FinalizarViagemRequestDto;
 import com.example.backend_frotas.dto.ViagemDetalhesDto;
 import com.example.backend_frotas.dto.ViagemHistoricoDto;
 import com.example.backend_frotas.service.ViagemService;
+import com.example.backend_frotas.security.UsuarioDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,31 +22,43 @@ public class ViagemController {
 
     private final ViagemService viagemService;
 
-    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'MOTORISTA')")
     @GetMapping("/motorista/meu-historico")
-    public ResponseEntity<List<ViagemHistoricoDto>> listarViagensDoMotorista() {
-        Long motoristaIdAutenticado = 6L; //Placeholder teste, será trocado por uma autenticação
-        return ResponseEntity.ok(viagemService.listarViagensPorMotorista(motoristaIdAutenticado));
+    @PreAuthorize("hasRole('MOTORISTA')")
+    public ResponseEntity<List<ViagemHistoricoDto>> listarViagensDoMotorista(
+            @AuthenticationPrincipal UsuarioDetails usuarioLogado
+    ) {
+        List<ViagemHistoricoDto> historico = viagemService.listarViagensPorMotorista(usuarioLogado.getId());
+        return ResponseEntity.ok(historico);
     }
-
+    
     @GetMapping("/{id}")
-    public ResponseEntity<ViagemDetalhesDto> obterDetalhesViagem(@PathVariable Long id) {
-        return ResponseEntity.ok(viagemService.obterDetalhesViagem(id));
+    @PreAuthorize("hasRole('MOTORISTA')")
+    public ResponseEntity<ViagemDetalhesDto> obterDetalhesViagem(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UsuarioDetails usuarioLogado
+    ) {
+        ViagemDetalhesDto detalhes = viagemService.obterDetalhesViagem(id, usuarioLogado.getId());
+        return ResponseEntity.ok(detalhes);
     }
 
-    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'MOTORISTA')")    
     @PostMapping("/{id}/iniciar")
+    @PreAuthorize("hasRole('MOTORISTA')")
     public ResponseEntity<ViagemDetalhesDto> iniciarViagem(
             @PathVariable Long id,
-            @Valid @RequestBody IniciarViagemRequestDto requestDTO) {
-        return ResponseEntity.ok(viagemService.iniciarViagem(id, requestDTO));
+            @Valid @RequestBody IniciarViagemRequestDto requestDTO,
+            @AuthenticationPrincipal UsuarioDetails usuarioLogado) {
+        ViagemDetalhesDto viagemAtualizada = viagemService.iniciarViagem(id, requestDTO, usuarioLogado.getId());
+        return ResponseEntity.ok(viagemAtualizada);
     }
 
-    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'MOTORISTA')")
     @PostMapping("/{id}/finalizar")
+    @PreAuthorize("hasRole('MOTORISTA')")
     public ResponseEntity<ViagemDetalhesDto> finalizarViagem(
             @PathVariable Long id,
-            @Valid @RequestBody FinalizarViagemRequestDto requestDTO) {
-        return ResponseEntity.ok(viagemService.finalizarViagem(id, requestDTO));
+            @Valid @RequestBody FinalizarViagemRequestDto requestDTO,
+            @AuthenticationPrincipal UsuarioDetails usuarioLogado) {
+                
+        ViagemDetalhesDto viagemAtualizada = viagemService.finalizarViagem(id, requestDTO, usuarioLogado.getId());
+        return ResponseEntity.ok(viagemAtualizada);
     }
 }

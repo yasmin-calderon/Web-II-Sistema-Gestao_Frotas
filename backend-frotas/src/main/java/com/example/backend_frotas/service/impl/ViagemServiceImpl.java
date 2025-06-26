@@ -32,7 +32,7 @@ public class ViagemServiceImpl implements ViagemService { // Lógica da ViagemSe
     }
 
     @Override
-    public ViagemDetalhesDto obterDetalhesViagem(Long id) { // Obtem os detalhes da viagem de acordo com o ID da viagem
+    public ViagemDetalhesDto obterDetalhesViagem(Long id, Long motoristaIdAutenticado) { // Obtem os detalhes da viagem de acordo com o ID da viagem e autenticando pela sessão do motorista
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agendamento não encontrado"));
         return convertToDetalhesDto(agendamento);
@@ -40,7 +40,7 @@ public class ViagemServiceImpl implements ViagemService { // Lógica da ViagemSe
 
     @Override
     @Transactional
-    public ViagemDetalhesDto iniciarViagem(Long id, IniciarViagemRequestDto requestDTO) { // Inicialização de viagem
+    public ViagemDetalhesDto iniciarViagem(Long id, IniciarViagemRequestDto requestDTO,  Long motoristaIdAutenticado) { // Inicialização de viagem e autenticando pela sessão do motorista
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agendamento não encontrado para iniciar"));
         if (agendamento.getStatus() != AgendamentoStatus.AGENDADO) {
@@ -55,7 +55,7 @@ public class ViagemServiceImpl implements ViagemService { // Lógica da ViagemSe
 
     @Override
     @Transactional
-    public ViagemDetalhesDto finalizarViagem(Long id, FinalizarViagemRequestDto requestDTO) { // Finalização de viagem
+    public ViagemDetalhesDto finalizarViagem(Long id, FinalizarViagemRequestDto requestDTO,  Long motoristaIdAutenticado) { // Finalização de viagem e autenticando pela sessão do motorista
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agendamento não encontrado para finalizar"));
         if (agendamento.getStatus() != AgendamentoStatus.EM_USO) {
@@ -93,7 +93,7 @@ public class ViagemServiceImpl implements ViagemService { // Lógica da ViagemSe
             workflow.add(WorkflowStatusDto.builder()
                 .tipoEvento("Status")
                 .descricaoEvento("Em Uso")
-                .dataHora(agendamento.getDataHoraSaida()) // Usado para ordenação visual
+                .dataHora(agendamento.getDataHoraSaida())
                 .build());
         }
         if (agendamento.getDataHoraRetorno() != null) {
