@@ -1,9 +1,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2>Histórico de Viagens</h2>
-      <!-- Pode ter um botão aqui se necessário, como o de "Cadastrar Motorista" -->
     </div>
-  
     <table class="table table-striped">
       <thead>
         <tr>
@@ -16,14 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Loop para exibir cada viagem -->
         <tr *ngFor="let viagem of viagens">
           <td>{{ viagem.id }}</td>
           <td>{{ viagem.veiculoInfo }}</td>
           <td>{{ viagem.destino }}</td>
           <td>{{ viagem.dataHoraSaida | date:'dd/MM/yyyy HH:mm' }}</td>
           <td>
-            <!-- Lógica simples para exibir o status -->
             <span class="badge" 
                   [ngClass]="{
                     'text-bg-secondary': viagem.status === 'PENDENTE',
@@ -57,16 +53,13 @@
       </tbody>
     </table>
   </div>
-  
-  <!-- Os componentes de modal permanecem no final do template. -->
-  <!-- A sua lógica de visibilidade com *ngIf irá mostrá-los quando necessário. -->
+  <!-- Componentes de modal -->
   <app-iniciar-viagem 
     *ngIf="modalIniciarAberto && viagemSelecionadaId"
     [viagemId]="viagemSelecionadaId"
     (fecharModal)="fecharModalIniciar()"
     (viagemIniciada)="onViagemAtualizada($event)">
   </app-iniciar-viagem>
-  
   <app-finalizar-viagem
     *ngIf="modalFinalizarAberto && viagemSelecionadaId"
     [viagemId]="viagemSelecionadaId"

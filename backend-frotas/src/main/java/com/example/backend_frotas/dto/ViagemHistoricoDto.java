@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 
 public class ViagemHistoricoDto {
     private Long id;
-    private String veiculoInfo; // Formato "Modelo - Placa"
+    private String veiculoInfo;
     private String destino;
-    private LocalDateTime dataHoraSaidaProgramada; // Ou dataHoraSaidaEfetiva se preferir
+    private LocalDateTime dataHoraSaidaProgramada; 
     private AgendamentoStatus status;
 }

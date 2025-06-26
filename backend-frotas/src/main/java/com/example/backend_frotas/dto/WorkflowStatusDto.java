@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 
 public class WorkflowStatusDto {
-    private String tipoEvento; // Ex: "Status Alterado", "Ocorrência Registrada"
-    private String descricaoEvento; // Ex: "AGENDADO", "EM_USO", "Descrição da Ocorrência"
+    private String tipoEvento; 
+    private String descricaoEvento; 
     private LocalDateTime dataHora;
 }

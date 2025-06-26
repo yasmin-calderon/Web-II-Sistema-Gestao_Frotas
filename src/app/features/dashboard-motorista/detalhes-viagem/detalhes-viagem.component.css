@@ -10,3 +10,84 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+.workflow-container {
+  position: relative;
+}
+
+.workflow-track {
+  position: absolute;
+  top: 11px; 
+  left: 210px; 
+  right: 210px;
+  height: 2px;
+}
+
+.workflow-line-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #e9ecef; 
+}
+
+.workflow-line-progress {
+  position: absolute;
+  height: 100%;
+  background-color: #198754; 
+  width: 0; 
+  transition: width 0.5s ease-in-out;
+}
+
+.workflow-steps {
+  position: relative; 
+  display: flex;
+  justify-content: space-between;
+}
+
+.workflow-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.workflow-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  border: 2px solid #ced4da;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: background-color 0.3s, border-color 0.3s;
+  font-size: 1rem;
+  z-index: 1;
+}
+
+.workflow-step.completed {
+  background-color: #198754;
+  border-color: #146c43;
+}
+
+.workflow-step i {
+  display: block;
+}
+
+
+.step-label {
+  margin-top: 0.75rem;
+  font-size: 0.875rem; 
+  font-weight: 600; 
+  color: #495057;
+  white-space: nowrap; 
+}
+
+.step-date {
+  font-size: 0.75rem; 
+  color: #6c757d; 
+  white-space: nowrap;
+}

@@ -18,6 +18,12 @@ export class DetalhesViagemComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
+  workflowSteps: { descricaoEvento: string }[] = [
+    { descricaoEvento: 'Agendado' },
+    { descricaoEvento: 'Em Uso' },
+    { descricaoEvento: 'Finalizado' }
+  ];
+
   private statusOrder = [
       AgendamentoStatus.PENDENTE,
       AgendamentoStatus.AGENDADO,
@@ -30,33 +36,53 @@ export class DetalhesViagemComponent implements OnInit {
     private viagemService: ViagemService
   ) {}
 
-  ngOnInit(): void {
-    const viagemId = this.route.snapshot.paramMap.get('id');
-    if (viagemId) {
-      this.carregarDetalhes(+viagemId);
-    } else {
-      this.isLoading = false;
-      this.errorMessage = "ID da viagem não fornecido na rota.";
-    }
-  }
-
-  carregarDetalhes(id: number): void {
-    this.isLoading = true;
-    this.errorMessage = null;
-    this.viagemService.obterDetalhesViagem(id).subscribe({
-      next: (data) => {
-        this.viagem = data;
+    ngOnInit(): void {
+      const viagemId = this.route.snapshot.paramMap.get('id');
+      if (viagemId) {
+        this.carregarDetalhes(+viagemId);
+      } else {
         this.isLoading = false;
-      },
-      error: (err) => {
-        this.errorMessage = err.message;
-        this.isLoading = false;
+        this.errorMessage = "ID da viagem não fornecido na rota.";
       }
-    });
-  }
+    }
+
+    carregarDetalhes(id: number): void {
+      this.isLoading = true;
+      this.errorMessage = null;
+      this.viagemService.obterDetalhesViagem(id).subscribe({
+        next: (data) => {
+          this.viagem = data;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.errorMessage = err.message;
+          this.isLoading = false;
+        }
+      });
+    }
 
     getStatusIndex(status: AgendamentoStatus): number {
-    const index = this.statusOrder.indexOf(status);
-    return index === -1 ? 0 : index; // Retorna 0 se o status não for encontrado
-  }
+      const index = this.statusOrder.indexOf(status);
+      return index === -1 ? 0 : index; // Retorna 0 se o status não for encontrado
+    }
+
+    // Validação de status do workflow
+    isStepCompleted(stepIndex: number): boolean {
+      if (!this.viagem || !this.viagem.workflow) return false;
+      const stepDescription = this.workflowSteps[stepIndex].descricaoEvento;
+      return this.viagem.workflow.some(e => e.descricaoEvento === stepDescription);
+    }
+
+    getEventDate(stepDescription: string): Date | null {
+      if (!this.viagem || !this.viagem.workflow) return null;
+      const event = this.viagem.workflow.find(e => e.descricaoEvento === stepDescription);
+      return event ? event.dataHora : null;
+    }
+
+    getWorkflowProgressPercentage(): number {
+      if (!this.viagem || !this.viagem.workflow) return 0;
+      const completedStepsCount = this.viagem.workflow.length;
+      if (completedStepsCount <= 1) return 0;
+      return ((completedStepsCount - 1) / (this.workflowSteps.length - 1)) * 100;
+    }
 }

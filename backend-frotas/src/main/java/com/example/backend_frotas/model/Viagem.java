@@ -37,28 +37,25 @@ public class Viagem {
     @Column(name = "justificativa", length = 255, nullable = false)
     private String justificativa;
 
-    // Colunas de data/hora
     @Column(name = "data_hora_saida", nullable = false)
-    private LocalDateTime dataHoraSaidaProgramada; // Mapeia para data_hora_saida
+    private LocalDateTime dataHoraSaidaProgramada;
 
     @Column(name = "data_hora_retorno")
-    private LocalDateTime dataHoraRetornoEfetiva; // Mapeia para data_hora_retorno
+    private LocalDateTime dataHoraRetornoEfetiva;
 
     // Colunas de quilometragem
     @Column(name = "quilometragem_saida", precision = 10, scale = 2)
     private BigDecimal quilometragemSaida;
 
     @Column(name = "quilometragem_final", precision = 10, scale = 2)
-    private BigDecimal quilometragemFinal; // <-- MUDANÇA: Nome do campo ajustado
+    private BigDecimal quilometragemFinal;
 
-    // Colunas de observações
     @Column(name = "observacoes_saida", length = 255)
     private String observacoesSaida;
 
     @Column(name = "observacoes_final", length = 255)
-    private String observacoesFinal; // <-- MUDANÇA: Nome do campo ajustado
+    private String observacoesFinal; 
 
-    // Coluna de status
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
     private AgendamentoStatus status;

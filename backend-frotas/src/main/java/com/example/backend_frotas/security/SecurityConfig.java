@@ -62,7 +62,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
           .csrf(csrf -> csrf
-            .ignoringRequestMatchers("/auth/**", "/h2-console/**")
+            //.ignoringRequestMatchers("/auth/**", "/h2-console/**") //Desabilitado para testes
+            .disable()
           )
           .headers(headers -> headers
             .defaultsDisabled()

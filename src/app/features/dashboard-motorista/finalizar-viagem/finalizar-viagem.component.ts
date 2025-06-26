@@ -36,7 +36,6 @@ export class FinalizarViagemComponent {
     this.isSubmitting = true;
     this.errorMessage = null;
 
-    // Chama o método correto no serviço
     this.viagemService.finalizarViagem(this.viagemId, this.form.value).subscribe({
       next: (data) => {
         this.isSubmitting = false;

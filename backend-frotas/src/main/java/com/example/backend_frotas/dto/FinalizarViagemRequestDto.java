@@ -10,6 +10,5 @@ public class FinalizarViagemRequestDto {
     @NotNull(message = "Quilometragem de retorno é obrigatória.")
     @PositiveOrZero(message = "Quilometragem de retorno deve ser um valor positivo ou zero.")
     private Double quilometragemRetorno;
-
-    private String observacoesRetorno; // Opcional
+    private String observacoesRetorno;
 }

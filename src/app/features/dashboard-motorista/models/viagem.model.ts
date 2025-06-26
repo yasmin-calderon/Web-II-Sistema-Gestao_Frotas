@@ -1,6 +1,6 @@
 import { AgendamentoStatus } from '../enums/agendamentostatus.enum';
 
-// Para a lista de histórico (RF004)
+// Histórico (RF004)
 export interface ViagemHistorico {
     id: number;
     veiculoInfo: string;
@@ -9,14 +9,19 @@ export interface ViagemHistorico {
     status: AgendamentoStatus;
 }
 
-// Para o workflow dentro dos detalhes (RF007)
-export interface WorkflowStatus {
-    tipoEvento: string;
-    descricaoEvento: string;
-    dataHora: string;
+// Iniciar Viagem (RF005)
+export interface IniciarViagemRequest {
+    quilometragemSaida: number;
+    observacoesSaida?: string;
 }
 
-// Para a tela de detalhes completa (RF007)
+// Finalizar Viagem (RF006)
+export interface FinalizarViagemRequest {
+    quilometragemRetorno: number;
+    observacoesRetorno?: string;
+}
+
+// Detalhes (RF007)
 export interface ViagemDetalhes {
     id: number;
     veiculoUtilizado: string;
@@ -30,17 +35,12 @@ export interface ViagemDetalhes {
     statusAtual: AgendamentoStatus;
     quilometragemFinal: number | null;
     observacoesFinal: string | null;
-    workflow?: any[]; // Workflow é opcional
+    workflow?: any[];
 }
 
-// Para o corpo da requisição de iniciar viagem (RF005)
-export interface IniciarViagemRequest {
-    quilometragemSaida: number;
-    observacoesSaida?: string;
-}
-
-// Para o corpo da requisição de finalizar viagem (RF006)
-export interface FinalizarViagemRequest {
-    quilometragemRetorno: number;
-    observacoesRetorno?: string;
+// Workflow de detalhes (RF007)
+export interface WorkflowStatus {
+    tipoEvento: string;
+    descricaoEvento: string;
+    dataHora: string;
 }

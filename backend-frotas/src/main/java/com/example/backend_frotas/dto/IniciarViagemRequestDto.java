@@ -10,6 +10,5 @@ public class IniciarViagemRequestDto {
      @NotNull(message = "Quilometragem de saída é obrigatória.")
     @PositiveOrZero(message = "Quilometragem de saída deve ser um valor positivo ou zero.")
     private Double quilometragemSaida;
-
-    private String observacoesSaida; // Opcional
+    private String observacoesSaida;
 }

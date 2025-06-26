@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ViagemRepository extends JpaRepository<Viagem, Long> {
-    List<Viagem> findByMotoristaOrderByDataHoraSaidaProgramadaDesc(Motorista motorista);
-
-    Optional<Viagem> findByIdAndMotoristaId(Long viagemId, Long motoristaId);
+    List<Viagem> findByMotoristaOrderByDataHoraSaidaProgramadaDesc(Motorista motorista); // Busca motorista e ordena pela data de saída programada
+    Optional<Viagem> findByIdAndMotoristaId(Long viagemId, Long motoristaId); //Busca motorista por ID
 }
