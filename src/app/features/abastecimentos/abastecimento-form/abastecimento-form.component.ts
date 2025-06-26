@@ -16,9 +16,9 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-abastecimento-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './abastecimento-form.component.html',
-  styleUrls: ['./abastecimento-form.component.css']
+  styleUrls: ['./abastecimento-form.component.css'],
+  imports: [CommonModule, FormsModule],
 })
 export class AbastecimentoFormComponent {
 

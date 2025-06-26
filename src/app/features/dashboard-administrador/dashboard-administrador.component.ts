@@ -63,11 +63,20 @@ export class DashboardAdministradorComponent implements OnInit {
     this.router.navigate(['/app/agendamentos/novo']);
   }
 
-  registrarAbastecimento() {
-    console.log('Registrar Abastecimento');
+  /*registrarAbastecimento() {
+    this.router.navigate(['/app/abastecimentos/novo']);
+    //console.log('Registrar Abastecimento');
   }
 
   registrarManutencao() {
     console.log('Registrar Manutenção');
   }
+}*/
+registrarAbastecimento() {
+  this.router.navigate(['/app/abastecimentos/novo']);
+}
+
+registrarManutencao() {
+  this.router.navigate(['/app/manutencoes/novo']);
+}
 }

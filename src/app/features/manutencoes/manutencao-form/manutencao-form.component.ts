@@ -42,15 +42,32 @@ export class ManutencaoFormComponent implements OnInit {
   }
 
   salvar() {
-    this.manutencaoService.criar(this.manutencao).subscribe({
+    // Verifica se a data foi preenchida
+    if (!this.manutencao.dataManutencao) {
+      alert('Preencha a data da manutenção');
+      return;
+    }
+  
+    // Concatena hora fixa para o LocalDateTime
+    const dataFormatada = `${this.manutencao.dataManutencao}T00:00:00`;
+  
+    const manutencaoCorrigida = {
+      ...this.manutencao,
+      dataManutencao: dataFormatada
+    };
+  
+    console.log('Enviando para o backend:', manutencaoCorrigida); // debug
+  
+    this.manutencaoService.criar(manutencaoCorrigida).subscribe({
       next: () => {
         alert('Manutenção registrada com sucesso!');
-        this.router.navigate(['/app/veiculos']); // ou outro destino
+        this.router.navigate(['/app/veiculos']);
       },
       error: (erro) => {
         alert('Erro ao registrar manutenção');
-        console.error(erro);
+        console.error('Erro detalhado:', erro);
       }
     });
   }
+  
 }
