@@ -129,32 +129,32 @@ export const routes: Routes = [
       {
         path: 'veiculos/novo',
         component: VeiculoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        canActivate: [AdminGuard] // Apenas administradores podem criar veículos
       },
       {
         path: 'veiculos/editar/:id',
         component: VeiculoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        canActivate: [AdminGuard] // Apenas administradores podem editar veículos
       },
       {
         path: 'agendamentos',
         component: AgendamentosListComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        // canActivate: [AdminGuard]
       },
       {
         path: 'agendamentos/novo',
         component: AgendamentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        canActivate: [AdminGuard] // Apenas administradores podem criar agendamentos
       },
       {
         path: 'agendamentos/editar/:id',
         component: AgendamentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        canActivate: [AdminGuard] // Apenas administradores podem editar agendamentos
       },
       {
         path: 'abastecimentos/novo/:agendamentoId?',
         component: AbastecimentoFormComponent,
-        canActivate: [AdminGuard] // Apenas administradores
+        //canActivate: [AdminGuard] // Apenas administradores podem criar abastecimentos
       },
       {
         path: 'manutencoes/novo/:veiculoId?',
