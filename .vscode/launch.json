@@ -4,6 +4,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "PasswordHashChecker",
+      "request": "launch",
+      "mainClass": "com.example.backend_frotas.security.PasswordHashChecker",
+      "projectName": "backend-frotas"
+    },
+    {
+      "type": "java",
+      "name": "PasswordHashGenerator",
+      "request": "launch",
+      "mainClass": "com.example.backend_frotas.security.PasswordHashGenerator",
+      "projectName": "backend-frotas"
+    },
+    {
+      "type": "java",
       "name": "BackendFrotasApplication",
       "request": "launch",
       "mainClass": "com.example.backend_frotas.BackendFrotasApplication",
