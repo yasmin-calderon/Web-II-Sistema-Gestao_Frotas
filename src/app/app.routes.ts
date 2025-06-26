@@ -54,7 +54,6 @@ export const routes: Routes = [
         path: 'forbidden',
         component: Forbidden403Component,
       },
-      
       {
         path: 'motorista',
         component: DashboardMotoristaComponent,
