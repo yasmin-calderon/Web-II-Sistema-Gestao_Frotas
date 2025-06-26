@@ -24,4 +24,7 @@ export class MotoristaService {
   atualizar(cpf: string, data: any): Observable<Motorista> {
     return this.http.put<Motorista>(`${this.apiUrl}/${cpf}`, data);
   }
+  desativar(cpf: string): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/motoristas/${cpf}`);
+  }
 }

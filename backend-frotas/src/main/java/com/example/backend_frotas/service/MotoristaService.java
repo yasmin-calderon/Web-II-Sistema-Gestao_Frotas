@@ -44,7 +44,13 @@ public class MotoristaService {
         motorista.setPerfil(PerfilUsuario.MOTORISTA);
         motorista.setAtivo(true);
 
-        return usuarioRepository.save(motorista);
+        try {
+            return usuarioRepository.save(motorista);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar motorista:");
+            e.printStackTrace(); // mostre o stack trace completo
+            throw e;
+        }
     }
 
     public List<MotoristaResponseDto> listarTodos() {

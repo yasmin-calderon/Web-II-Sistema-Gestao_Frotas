@@ -8,7 +8,7 @@ import com.example.backend_frotas.service.MotoristaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class MotoristaController {
     private MotoristaService motoristaService;
 
     //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    //@PreAuthorize("hasRole('ADMINISTRADOR')")
     @PostMapping
     public ResponseEntity<Usuario> criarMotorista(@RequestBody @Valid CreateMotoristaDto dto) {
         Usuario novoMotorista = motoristaService.criar(dto);
@@ -37,13 +38,13 @@ public class MotoristaController {
         return ResponseEntity.ok(motorista);
     }
 
-    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    // @PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
     @PutMapping("/{cpf}")
     public ResponseEntity<Usuario> atualizarMotorista(@PathVariable String cpf, @RequestBody @Valid UpdateMotoristaDto dto) {
         return ResponseEntity.ok(motoristaService.atualizar(cpf, dto));
     }
 
-    //@PreAuthorize("@customSecurity.hasPerfil(authentication, 'ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> desativarMotorista(@PathVariable String cpf) {
         //

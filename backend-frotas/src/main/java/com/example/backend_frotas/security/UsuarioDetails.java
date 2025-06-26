@@ -28,6 +28,7 @@ public class UsuarioDetails extends User {
         );
         this.perfil = usuario.getPerfil();
     }
+    
 
     /**
      * Retorna o perfil do usuário (MOTORISTA ou ADMINISTRADOR).

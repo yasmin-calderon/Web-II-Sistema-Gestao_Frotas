@@ -2,7 +2,9 @@
 INSERT INTO usuarios (nome_completo, cpf, email, senha_hash, perfil, telefone, cep, rua, numero, bairro, cidade, estado, ativo) VALUES
 ('Lucas Admin', '11122233344', 'lucas.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41991234567', '80000000', 'Rua Alfa', '100', 'Centro', 'Curitiba', 'PR', TRUE),
 ('Amanda Admin', '22233344455', 'amanda.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41992345678', '80000000', 'Rua Beta', '200', 'Centro', 'Curitiba', 'PR', TRUE),
-('Jorge Admin', '33344455566', 'jorge.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41993456789', '80000000', 'Rua Gama', '300', 'Centro', 'Curitiba', 'PR', TRUE);
+('Jorge Admin', '33344455566', 'jorge.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41993456789', '80000000', 'Rua Gama', '300', 'Centro', 'Curitiba', 'PR', TRUE),
+('Teste Admin', '33344455560', 'teste.admin@frotas.com', '123:Mjg5MTYwZGIwZDlmMzlmOWFlMTc1NGM0ZWM5YzE2ZjkwYjUwZTMyZTA5YzVmYjU0ODFhZTY0MmIzZDNkMWEzNg==', 'ADMINISTRADOR', '41993456780', '80000001', 'Rua Gama', '500', 'Centro', 'Curitiba', 'PR', TRUE);
+
 
 -- Inserir Motoristas (5)
 INSERT INTO usuarios (nome_completo, cpf, email, senha_hash, perfil, telefone, cep, rua, numero, bairro, cidade, estado, cnh, validade_cnh, ativo) VALUES
