@@ -1,1 +1,19 @@
-<p>ocorrencia-form works!</p>
+<form (ngSubmit)="registrar()">
+    <div>
+      <label>Veículo ID:</label>
+      <input type="number" [(ngModel)]="ocorrencia.veiculoId" name="veiculoId" required />
+    </div>
+  
+    <div>
+      <label>Descrição do Problema:</label>
+      <textarea [(ngModel)]="ocorrencia.descricaoProblema" name="descricaoProblema" required></textarea>
+    </div>
+  
+    <div>
+      <label>Motorista ID:</label>
+      <input type="number" [(ngModel)]="ocorrencia.motoristaId" name="motoristaId" required />
+    </div>
+  
+    <button type="submit">Registrar Ocorrência</button>
+  </form>
+  

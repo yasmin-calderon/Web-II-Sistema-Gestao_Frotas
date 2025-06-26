@@ -6,6 +6,7 @@ import { AdminGuard } from './core/auth/admin.guard';
 import { MotoristaGuard } from './core/auth/motorista.guard';
 import { LoginComponent } from './core/auth/login/login-form/login.component';
 
+
 // Importar todos os componentes das features diretamente
 import { DashboardMotoristaComponent } from './features/dashboard-motorista/dashboard-motorista.component';
 import { DashboardAdministradorComponent } from './features/dashboard-administrador/dashboard-administrador.component';
@@ -115,11 +116,6 @@ export const routes: Routes = [
         path: 'administradores',
         component: AdministradorListComponent,
         canActivate: [AdminGuard] // Apenas administradores podem acessar a lista de administradores
-      },
-
-      // Rotas de Veículos (RF010)
-      {
-        canActivate: [AdminGuard] // Apenas administradores
       },
       {
         path: 'veiculos',
