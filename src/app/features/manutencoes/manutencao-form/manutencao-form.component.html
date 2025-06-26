@@ -1,1 +1,97 @@
-<p>manutencao-form works!</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Registrar Manutenção</h2>
+  
+    <form (ngSubmit)="salvar()" #manutencaoForm="ngForm">
+      <!-- Veículo -->
+      <div class="mb-3">
+        <label for="veiculoId" class="form-label">Veículo</label>
+        <select
+          id="veiculoId"
+          class="form-select"
+          [(ngModel)]="manutencao.veiculoId"
+          name="veiculoId"
+          required
+        >
+          <option value="" disabled selected>Selecione o veículo</option>
+          <option *ngFor="let v of veiculos" [value]="v.id">
+            {{ v.modelo }} ({{ v.placa }})
+          </option>
+        </select>
+      </div>
+  
+      <!-- Data -->
+      <div class="mb-3">
+        <label for="data" class="form-label">Data da Manutenção</label>
+        <input
+          type="date"
+          id="data"
+          class="form-control"
+          [(ngModel)]="manutencao.dataManutencao"
+          name="dataManutencao"
+          required
+        />
+      </div>
+  
+      <!-- Tipo -->
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo</label>
+        <select
+          id="tipo"
+          class="form-select"
+          [(ngModel)]="manutencao.tipo"
+          name="tipo"
+          required
+        >
+          <option value="" disabled selected>Selecione</option>
+          <option value="PREVENTIVA">Preventiva</option>
+          <option value="CORRETIVA">Corretiva</option>
+        </select>
+      </div>
+  
+      <!-- Descrição -->
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea
+          id="descricao"
+          class="form-control"
+          [(ngModel)]="manutencao.descricao"
+          name="descricao"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+  
+      <!-- Valor -->
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor (R$)</label>
+        <input
+          type="number"
+          step="0.01"
+          id="valor"
+          class="form-control"
+          [(ngModel)]="manutencao.valor"
+          name="valor"
+          required
+        />
+      </div>
+  
+      <!-- Quilometragem -->
+      <div class="mb-3">
+        <label for="km" class="form-label">Quilometragem Atual</label>
+        <input
+          type="number"
+          id="km"
+          class="form-control"
+          [(ngModel)]="manutencao.quilometragemManutencao"
+          name="quilometragemManutencao"
+          required
+        />
+      </div>
+  
+      <!-- Botão de envio -->
+      <button type="submit" class="btn btn-primary" [disabled]="!manutencaoForm.form.valid">
+        Salvar
+      </button>
+    </form>
+  </div>
+  

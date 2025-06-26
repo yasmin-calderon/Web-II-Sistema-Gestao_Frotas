@@ -1,18 +1,16 @@
 -- Inserir Administradores (3)
 INSERT INTO usuarios (nome_completo, cpf, email, senha_hash, perfil, telefone, cep, rua, numero, bairro, cidade, estado, ativo) VALUES
-('Lucas Admin', '11122233344', 'lucas.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41991234567', '80000000', 'Rua Alfa', '100', 'Centro', 'Curitiba', 'PR', TRUE),
-('Amanda Admin', '22233344455', 'amanda.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41992345678', '80000000', 'Rua Beta', '200', 'Centro', 'Curitiba', 'PR', TRUE),
-('Jorge Admin', '33344455566', 'jorge.admin@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'ADMINISTRADOR', '41993456789', '80000000', 'Rua Gama', '300', 'Centro', 'Curitiba', 'PR', TRUE),
-('Teste Admin', '33344455560', 'teste.admin@frotas.com', '123:Mjg5MTYwZGIwZDlmMzlmOWFlMTc1NGM0ZWM5YzE2ZjkwYjUwZTMyZTA5YzVmYjU0ODFhZTY0MmIzZDNkMWEzNg==', 'ADMINISTRADOR', '41993456780', '80000001', 'Rua Gama', '500', 'Centro', 'Curitiba', 'PR', TRUE);
-
+('Lucas Admin', '11122233344', 'lucas.admin@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'ADMINISTRADOR', '41991234567', '80000000', 'Rua Alfa', '100', 'Centro', 'Curitiba', 'PR', TRUE),
+('Amanda Admin', '22233344455', 'amanda.admin@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'ADMINISTRADOR', '41992345678', '80000000', 'Rua Beta', '200', 'Centro', 'Curitiba', 'PR', TRUE),
+('Jorge Admin', '33344455566', 'jorge.admin@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'ADMINISTRADOR', '41993456789', '80000000', 'Rua Gama', '300', 'Centro', 'Curitiba', 'PR', TRUE);
 
 -- Inserir Motoristas (5)
 INSERT INTO usuarios (nome_completo, cpf, email, senha_hash, perfil, telefone, cep, rua, numero, bairro, cidade, estado, cnh, validade_cnh, ativo) VALUES
-('Paulo Motorista', '44455566677', 'paulo.mot@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'MOTORISTA', '41994567890', '80000001', 'Av. Paraná', '10', 'Boa Vista', 'Curitiba', 'PR', '12345678901', '2028-12-31', TRUE),
-('Carla Motorista', '55566677788', 'carla.mot@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'MOTORISTA', '41995678901', '80000002', 'Rua Sete de Setembro', '20', 'Centro', 'Curitiba', 'PR', '23456789012', '2027-11-30', TRUE),
-('Roberta Motorista', '66677788899', 'roberta.mot@frotas.com', '$123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'MOTORISTA', '41996789012', '80000003', 'Rua das Flores', '30', 'Jardim Botânico', 'Curitiba', 'PR', '34567890123', '2029-10-15', TRUE),
-('Diego Motorista', '77788899900', 'diego.mot@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'MOTORISTA', '41997890123', '80000004', 'Alameda Dr. Carlos de Carvalho', '40', 'Batel', 'Curitiba', 'PR', '45678901234', '2026-09-01', TRUE),
-('Thiago Motorista', '88899900011', 'thiago.mot@frotas.com', '123:r6LRJNdWEvgxNbYdaVuDm4GbrAt04yS9f19mPiuhmPg=', 'MOTORISTA', '41998901234', '80000005', 'Rua XV de Novembro', '50', 'Centro', 'Curitiba', 'PR', '56789012345', '2030-08-20', TRUE);
+('Paulo Motorista', '44455566677', 'paulo.mot@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'MOTORISTA', '41994567890', '80000001', 'Av. Paraná', '10', 'Boa Vista', 'Curitiba', 'PR', '12345678901', '2028-12-31', TRUE),
+('Carla Motorista', '55566677788', 'carla.mot@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'MOTORISTA', '41995678901', '80000002', 'Rua Sete de Setembro', '20', 'Centro', 'Curitiba', 'PR', '23456789012', '2027-11-30', TRUE),
+('Roberta Motorista', '66677788899', 'roberta.mot@frotas.com', '$WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'MOTORISTA', '41996789012', '80000003', 'Rua das Flores', '30', 'Jardim Botânico', 'Curitiba', 'PR', '34567890123', '2029-10-15', TRUE),
+('Diego Motorista', '77788899900', 'diego.mot@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'MOTORISTA', '41997890123', '80000004', 'Alameda Dr. Carlos de Carvalho', '40', 'Batel', 'Curitiba', 'PR', '45678901234', '2026-09-01', TRUE),
+('Thiago Motorista', '88899900011', 'thiago.mot@frotas.com', 'WeSfLm5SWhxqG1MeV0WBoQ==:qTvSM7+LI6QQ9MkjsOExhb76z3tHIpEYu1/FxwOx2pA=', 'MOTORISTA', '41998901234', '80000005', 'Rua XV de Novembro', '50', 'Centro', 'Curitiba', 'PR', '56789012345', '2030-08-20', TRUE);
 
 -- Inserir Veículos (6)
 INSERT INTO veiculos (placa, modelo, tipo, ano, quilometragem_atual, status, ativo) VALUES

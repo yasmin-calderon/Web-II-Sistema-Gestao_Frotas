@@ -1,1 +1,68 @@
-<p>historico-viagens works!</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Histórico de Viagens</h2>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Veículo</th>
+          <th>Destino</th>
+          <th>Saída Programada</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let viagem of viagens">
+          <td>{{ viagem.id }}</td>
+          <td>{{ viagem.veiculoInfo }}</td>
+          <td>{{ viagem.destino }}</td>
+          <td>{{ viagem.dataHoraSaida | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <span class="badge" 
+                  [ngClass]="{
+                    'text-bg-secondary': viagem.status === 'PENDENTE',
+                    'text-bg-primary': viagem.status === 'AGENDADO',
+                    'text-bg-warning': viagem.status === 'EM_USO',
+                    'text-bg-success': viagem.status === 'FINALIZADO',
+                    'text-bg-danger': viagem.status === 'CANCELADO'
+                  }">
+              {{ viagem.status }}
+            </span>
+          </td>
+          <td>
+            <!-- Botão de Iniciar, só aparece se o status for AGENDADO -->
+            <button *ngIf="viagem.status === 'AGENDADO'" (click)="abrirModalIniciar(viagem.id)" class="btn btn-sm btn-success me-2">
+              Iniciar
+            </button>
+            <!-- Botão de Finalizar, só aparece se o status for EM_USO -->
+            <button *ngIf="viagem.status === 'EM_USO'" (click)="abrirModalFinalizar(viagem.id)" class="btn btn-sm btn-danger me-2">
+              Finalizar
+            </button>
+            <!-- Botão para ver detalhes -->
+            <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/app/motorista/agendamento', viagem.id, 'detalhes']">
+              Detalhes
+            </a>
+          </td>
+        </tr>
+        <!-- Mensagem para quando não houver viagens -->
+        <tr *ngIf="viagens.length === 0">
+          <td colspan="6" class="text-center">Nenhuma viagem encontrada.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Componentes de modal -->
+  <app-iniciar-viagem 
+    *ngIf="modalIniciarAberto && viagemSelecionadaId"
+    [viagemId]="viagemSelecionadaId"
+    (fecharModal)="fecharModalIniciar()"
+    (viagemIniciada)="onViagemAtualizada($event)">
+  </app-iniciar-viagem>
+  <app-finalizar-viagem
+    *ngIf="modalFinalizarAberto && viagemSelecionadaId"
+    [viagemId]="viagemSelecionadaId"
+    (fecharModal)="fecharModalFinalizar()"
+    (viagemFinalizada)="onViagemAtualizada($event)">
+  </app-finalizar-viagem>

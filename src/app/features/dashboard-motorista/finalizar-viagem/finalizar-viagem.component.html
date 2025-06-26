@@ -1,1 +1,43 @@
-<p>finalizar-viagem works!</p>
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1" (click)="cancelar()">
+  <div class="modal-dialog modal-dialog-centered" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Finalizar Viagem #{{ viagemId }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="cancelar()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" id="finalizarViagemForm">
+          <div class="mb-3">
+            <label for="quilometragemRetorno" class="form-label">Quilometragem de Retorno*</label>
+            <input id="quilometragemRetorno" type="number" formControlName="quilometragemRetorno"
+                   class="form-control"
+                   [ngClass]="{'is-invalid': form.get('quilometragemRetorno')?.invalid && form.get('quilometragemRetorno')?.touched}">
+            <div *ngIf="form.get('quilometragemRetorno')?.invalid && form.get('quilometragemRetorno')?.touched" class="invalid-feedback">
+              <span *ngIf="form.get('quilometragemRetorno')?.errors?.['required']">Este campo é obrigatório.</span>
+              <span *ngIf="form.get('quilometragemRetorno')?.errors?.['min']">O valor não pode ser negativo.</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="observacoesRetorno" class="form-label">Observações (opcional)</label>
+            <textarea id="observacoesRetorno" formControlName="observacoesRetorno" rows="3"
+                      class="form-control"></textarea>
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">
+          Cancelar
+        </button>
+        <button type="submit" form="finalizarViagemForm" [disabled]="isSubmitting"
+                class="btn btn-danger d-flex align-items-center">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          {{ isSubmitting ? 'Finalizando...' : 'Confirmar Fim' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

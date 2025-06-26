@@ -30,4 +30,9 @@ export class VeiculoService {
   buscarPorId(id: number): Observable<Veiculo> {
     return this.http.get<Veiculo>(`${this.apiUrl}/${id}`);
   }
+
+    // Alias para compatibilidade com outros componentes
+  getTodos(): Observable<Veiculo[]> {
+    return this.listarTodos();
+  }
 }

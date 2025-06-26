@@ -1,1 +1,47 @@
-<p>abastecimento-form works!</p>
+<div class="container mt-4">
+    <h2>Registro de Abastecimento</h2>
+    <form (ngSubmit)="onSubmit()" #abastecimentoForm="ngForm">
+  
+      <div class="mb-3">
+        <label for="veiculoId" class="form-label">Veículo</label>
+        <select class="form-select" id="veiculoId" required [(ngModel)]="abastecimento.veiculoId" name="veiculoId">
+          <option *ngFor="let v of veiculos" [value]="v.id">{{ v.nome }}</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="data" class="form-label">Data</label>
+        <input type="date" class="form-control" id="data" required [(ngModel)]="abastecimento.data" name="data">
+      </div>
+  
+      <div class="mb-3">
+        <label for="tipoCombustivel" class="form-label">Tipo de Combustível</label>
+        <select class="form-select" id="tipoCombustivel" required [(ngModel)]="abastecimento.tipoCombustivel" name="tipoCombustivel">
+          <option value="Gasolina">Gasolina</option>
+          <option value="Etanol">Etanol</option>
+          <option value="Diesel">Diesel</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor (R$)</label>
+        <input type="number" class="form-control" id="valor" required [(ngModel)]="abastecimento.valor" name="valor" step="0.01">
+      </div>
+  
+      <div class="mb-3">
+        <label for="quilometragem" class="form-label">Quilometragem</label>
+        <input type="number" class="form-control" id="quilometragem" required [(ngModel)]="abastecimento.quilometragem" name="quilometragem">
+      </div>
+  
+      <div class="mb-3">
+        <label for="motoristaId" class="form-label">Motorista</label>
+        <select class="form-select" id="motoristaId" required [(ngModel)]="abastecimento.motoristaId" name="motoristaId">
+          <option *ngFor="let m of motoristas" [value]="m.id">{{ m.nome }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-success" [disabled]="!abastecimentoForm.form.valid">Registrar</button>
+  
+    </form>
+  </div>
+  
